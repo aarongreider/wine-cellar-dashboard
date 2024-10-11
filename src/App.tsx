@@ -38,26 +38,30 @@ function App() {
     fetchData();
 
     /* UNBIND JCF FROM SELECT OBJECTS */
-    try {
-      console.log("Getting JCF Instance");
-      
-      const selectElement = document.querySelector('select');
+    const peskyJCF = () => {
+      try {
+        console.log("Getting JCF Instance");
 
-      // Get the jcf instance associated with the select element
-      // @ts-ignore
-      const jcfInstance = jcf.getInstance(selectElement);
+        const selectElement = document.querySelector('select');
+        console.log("select object: ", selectElement);
 
-      // Check if instance exists and destroy it
-      if (jcfInstance) {
-        jcfInstance.destroy();
-        console.log("Destroying JCF Instance D:<", jcfInstance);
-      } else {
-        console.log("NO INSTANCE AHHHH");
-        
+        // Get the jcf instance associated with the select element
+        // @ts-ignore
+        const jcfInstance = jcf.getInstance(selectElement);
+
+        // Check if instance exists and destroy it
+        if (jcfInstance) {
+          jcfInstance.destroy();
+          console.log("Destroying JCF Instance D:<", jcfInstance);
+        } else {
+          console.log("NO INSTANCE AHHHH");
+
+        }
+      } catch (error) {
+        console.log(error);
       }
-    } catch (error) {
-      console.log(error);
     }
+    setInterval(peskyJCF, 10000)
 
   }, [])
 
