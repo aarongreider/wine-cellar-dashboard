@@ -1,0 +1,55 @@
+body {
+    background: #2a4731;
+}
+
+#wineList {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    //flex-grow: 1;
+
+    .wineBottle {
+        // layout
+        padding: 10px 20px;
+        width: 100%;
+
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 6px;
+
+        // style
+        background: #e9e5d4;
+        border-radius: 16px;
+
+        // type
+        font-size: 22px;
+        font-family: "Alegreya Sans", Arial, Helvetica, sans-serif;
+        font-weight: 700;
+        color: rgba(48, 85, 58, 1);
+
+        * {
+            margin: 0;
+        }
+
+        div {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 2px;
+            text-align: left;
+        
+            &:last-child {
+                align-items: flex-end;
+                text-align: right;
+            }
+        }
+
+        p {
+            font-size: 18px;
+            font-weight: light;
+        }
+    }
+}

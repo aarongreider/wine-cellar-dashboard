@@ -1,0 +1,94 @@
+import { ReactNode, useEffect, useRef, useState } from "react"
+import './FilterPanel.css'
+import { nanoid } from "nanoid"
+
+interface FilterProps {
+    filters: string[]
+    activeFilters: string[]
+    handleFilter: (query: string) => void
+}
+
+export function FilterPanel({ filters, activeFilters, handleFilter }: FilterProps) {
+    // a relocatable, resizable filter display
+    return <>{filters.map((filter) => {
+        return <><FilterInput filter={filter} activeFilters={activeFilters} key={filter} handleFilter={handleFilter} /></>
+    })}</>
+}
+
+interface InputProps {
+    filter: string
+    activeFilters: string[]
+    handleFilter: (query: string) => void
+}
+export function FilterInput({ filter, activeFilters, handleFilter }: InputProps) {
+    const [checked, setChecked] = useState<boolean>(false)
+    useEffect(() => {
+        activeFilters?.includes(filter) ? setChecked(true) : setChecked(false)
+    }, [])
+
+    return <>
+        <div style={{ gap: '4px', padding: 0 }}><input type='checkbox' checked={checked} value={filter} onChange={() => { handleFilter(filter); setChecked(!checked) }} /><p>{filter}</p></div>
+    </>
+}
+
+
+interface PanelProps {
+    children: ReactNode
+    viewportRes: { x: number, y: number }
+    scrollable: boolean
+    title?: string
+
+}
+
+export const WithSidePanel = ({ children, viewportRes, scrollable }: PanelProps) => {
+    const [isOverflowing, setIsOverflowing] = useState<boolean>(false)
+    const filterRef = useRef<HTMLDivElement | null>(null)
+
+    useEffect(() => {
+        scrollable && filterRef?.current ? setIsOverflowing(filterRef.current.scrollHeight > filterRef.current.clientHeight) : undefined
+    }, [viewportRes])
+
+    return <div ref={filterRef} key={nanoid()} style={{ overflowY: `${isOverflowing ? `scroll` : `hidden`}` }} className="filterPanel">{children}</div>
+}
+
+export const WithPopUp = ({ children, title, viewportRes, scrollable }: PanelProps) => {
+    const [visible, setVisible] = useState<boolean>(false)
+    const [isOverflowing, setIsOverflowing] = useState<boolean>(false)
+    const filterRef = useRef<HTMLDivElement | null>(null)
+
+    useEffect(() => {
+        scrollable && filterRef?.current ? setIsOverflowing(filterRef.current.scrollHeight > filterRef.current.clientHeight) : undefined
+    }, [viewportRes])
+
+    const toggleVisible = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        if (!(e.target instanceof HTMLInputElement)) {
+            setVisible(!visible)
+        }
+    }
+
+    return (
+        <div className="filterPanel" key={nanoid()} style={{ position: 'relative' }} onClick={toggleVisible}>
+            <span style={{ fontSize: '20px', fontVariationSettings: `'FILL' 1` }} className="material-symbols-outlined">bolt</span>
+            <p style={{ fontWeight: 600, textWrap: "nowrap", padding: '5px' }}>{title}</p>
+            <div ref={filterRef} style={{
+                display: `${visible ? `flex` : `none`}`,
+                flexDirection: 'column',
+                gap: '4px',
+                alignItems: 'flex-start',
+                position: 'absolute',
+                maxHeight: '80svh',
+                top: '40px',
+                right: '0',
+                textAlign: "left",
+                textWrap: "nowrap",
+                fontWeight: 600,
+                filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2))',
+                padding: '14px',
+                borderRadius: '18px',
+                overflowY: `${isOverflowing ? `scroll` : `hidden`}`
+            }}>
+                {children}
+            </div>
+        </div>
+    )
+}

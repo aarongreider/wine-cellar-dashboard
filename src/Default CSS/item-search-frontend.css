@@ -1,0 +1,84 @@
+.row:before, .row:after {display: none !important;}
+label { text-transform: uppercase; font-weight: bold; }
+select { font-size: 0.8em; text-transform: uppercase; border-color: #fff; height: 25px; color: #412202; padding-left: 5px;} 
+
+#SearchTerm:focus { z-index: 1 !important; }
+#btnSearch:hover { color: #412202; background-color: #EDD14A; }
+#btnSearch:before { content: none !important; }
+#btnSearch .icon {
+    background: url('https://junglejims.com/wp-content/plugins/item-search/pages/images/search-icon.png') no-repeat;
+    background-size: contain;
+    float: left;
+    width: 40px;
+    height: 25px;
+}  
+#btnSearch { z-index: 1 !important; }
+
+.input-group-text {
+    background-size: contain;
+    background-color: #fff;
+    float: left;
+    width: 30px;
+    height: 30px;
+}
+
+.label { text-transform: uppercase; font-weight: bold; font-size: 0.9em; }
+.btn { border-radius: 0.5em; text-transform: uppercase; font-weight: bold; font-size: 0.9em; color: #412202; background-color: #EDD14A; border-width: 0; }
+
+.storeSelector:before, .inStockSelector:before, .resultsPerPageSelector:before, .paging_link:before { content: none !important; }
+.storeSelector, .inStockSelector, .resultsPerPageSelector, .paging_link { content: none !important; padding: 3px 10px 0 10px !important; }
+.storeSelector:not(.active), .inStockSelector:not(.active), .resultsPerPageSelector:not(.active), .paging_link { border: none !important; }
+
+.rcorners { border-radius: 0.75em; }
+
+.btn-secondary { 
+    color: #412202; background-color: #fff; border-color: #fff; font-size: 0.8em; font-weight: bold; height: 25px; padding-top: 0.2em;
+}
+.btn-secondary:hover { color: #412202; background-color: #EDD14A; }
+.btn-secondary:not(:disabled):not(.disabled).active, 
+.btn-secondary:not(:disabled):not(.disabled):active, 
+.show>.btn-secondary.dropdown-toggle{ 
+    color: #412202; background-color: #EDD14A; border-color: #EDD14A; font-size: 0.8em; font-weight: bold; height: 25px; padding-top: 0.2em;
+}
+
+
+.autocomplete {
+    /*the container must be positioned relative:*/
+    position: relative;
+    display: inline-block;
+}
+
+.autocomplete-items {
+    /* position: absolute; */
+    border: 1px solid #d4d4d4;
+    border-bottom: none;
+    border-top: none;
+    z-index: 99;
+    /*position the autocomplete items to be the same width as the container:*/
+    top: 100%;
+    left: 0;
+    right: 0;
+}
+
+.autocomplete-items div {
+    padding: 10px;
+    cursor: pointer;
+    background-color: #fff;
+    border-bottom: 1px solid #d4d4d4;
+}
+
+.autocomplete-items div:hover {
+    /*when hovering an item:*/
+    background-color: #eed249; /* #e9e9e9; */
+    cursor: pointer;
+}
+
+.autocomplete-active {
+    /*when navigating through the items using the arrow keys:*/
+    background-color: DodgerBlue !important;
+    color: #ffffff;
+}
+
+@media screen and (max-width: 1182px) {
+    span.label { display:block; }
+}
