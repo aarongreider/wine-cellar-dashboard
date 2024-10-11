@@ -39,6 +39,8 @@ function App() {
 
     /* UNBIND JCF FROM SELECT OBJECTS */
     try {
+      console.log("Getting JCF Instance");
+      
       const selectElement = document.querySelector('select');
 
       // Get the jcf instance associated with the select element
@@ -48,11 +50,15 @@ function App() {
       // Check if instance exists and destroy it
       if (jcfInstance) {
         jcfInstance.destroy();
+        console.log("Destroying JCF Instance D:<", jcfInstance);
+      } else {
+        console.log("NO INSTANCE AHHHH");
+        
       }
     } catch (error) {
       console.log(error);
     }
-    
+
   }, [])
 
   useEffect(() => { // assemble list of wine types and countries to reference
