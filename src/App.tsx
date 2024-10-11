@@ -37,6 +37,22 @@ function App() {
     };
     fetchData();
 
+    /* UNBIND JCF FROM SELECT OBJECTS */
+    try {
+      const selectElement = document.querySelector('select');
+
+      // Get the jcf instance associated with the select element
+      // @ts-ignore
+      const jcfInstance = jcf.getInstance(selectElement);
+
+      // Check if instance exists and destroy it
+      if (jcfInstance) {
+        jcfInstance.destroy();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    
   }, [])
 
   useEffect(() => { // assemble list of wine types and countries to reference
