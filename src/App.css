@@ -6,10 +6,9 @@
   text-align: center;
 }
 
-body {
-  height: auto !important;
-}
-
+/* body {
+    height: auto !important;
+} */
 p {
   margin: 0;
 }
