@@ -25,19 +25,7 @@ function App() {
   const [jcfDestroyed, setJcfDestroyed] = useState<boolean>(false)
 
 
-  useEffect(() => {  // fetch the initial data and set the state
-    const fetchData = async () => {
-      try {
-        //console.log("Fetching data");
-        const data = await fetchBottleData();
-        setWineBottles(data);
-        setFilteredWineBottles(data)
-      } catch {
-        //console.log("Error fetching data in useEffect");
-      }
-    };
-    fetchData();
-
+  useEffect(() => { // Setting up the window.onload event inside useEffect
     /* UNBIND JCF FROM SELECT OBJECTS */
     const peskyJCF = () => {
       if (!jcfDestroyed)
@@ -58,15 +46,33 @@ function App() {
             setJcfDestroyed(true)
           } else {
             console.log("NO INSTANCE AHHHH");
-
+            setTimeout(peskyJCF, 500)
           }
         } catch (error) {
           console.log(error);
         }
     }
 
-    setInterval(peskyJCF, 500)
+    window.onload = peskyJCF;
 
+    // Cleanup the event listener when the component unmounts
+    return () => {
+      window.onload = null; // Reset to prevent memory leaks
+    };
+  }, []); // Empty dependency array to run only once on mount
+
+  useEffect(() => {  // fetch the initial data and set the state
+    const fetchData = async () => {
+      try {
+        //console.log("Fetching data");
+        const data = await fetchBottleData();
+        setWineBottles(data);
+        setFilteredWineBottles(data)
+      } catch {
+        //console.log("Error fetching data in useEffect");
+      }
+    };
+    fetchData();
   }, [])
 
   useEffect(() => { // assemble list of wine types and countries to reference
