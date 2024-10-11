@@ -113,7 +113,8 @@ function App() {
 
   return (
     <>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', width: '100%' }}>
+      <div id="appContainer">
+        <h1 style={{ width: '100%', textAlign: 'left', color: '#e9e5d4', height: `${viewportRes.x > 650 ? 0 : 'auto'}`, transform: `${viewportRes.x > 650 ? 'translateY(18px)' : 'none'}` }}>Fairfield Wine Cellar Inventory</h1>
         <div id="toolbarWrapper">
           <div className='filterToolbar'>
             <div>

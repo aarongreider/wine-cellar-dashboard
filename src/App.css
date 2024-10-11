@@ -1,9 +1,34 @@
-#root {
-  max-width: 1280px;
-  width: 100%;
+body {
+  overflow-x: hidden;
+}
+
+#rootAnchor {
+  width: 80%;
   margin: 0 auto;
-  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  overflow: visible;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100svw;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background: #2a4731;
   text-align: center;
+}
+
+#appContainer {
+  max-width: 1280px;
+  gap: 12px;
+  width: auto;
+  padding: 20px;
 }
 
 /* body {
