@@ -22,6 +22,7 @@ function App() {
   const [additionalFiltersWineType, setAdditionalFiltersWineType] = useState<string[]>([])
   const [viewportRes, setViewportRes] = useState({ x: window.innerWidth, y: window.innerHeight })
   const sortRef = useRef<HTMLSelectElement>(null);
+  const [jcfDestroyed, setJcfDestroyed] = useState<boolean>(false)
 
 
   useEffect(() => {  // fetch the initial data and set the state
@@ -39,29 +40,32 @@ function App() {
 
     /* UNBIND JCF FROM SELECT OBJECTS */
     const peskyJCF = () => {
-      try {
-        console.log("Getting JCF Instance");
+      if (!jcfDestroyed)
+        try {
+          console.log("Getting JCF Instance");
 
-        const selectElement = document.querySelector('select');
-        console.log("select object: ", selectElement);
+          const selectElement = document.querySelector('select');
+          console.log("select object: ", selectElement);
 
-        // Get the jcf instance associated with the select element
-        // @ts-ignore
-        const jcfInstance = jcf.getInstance(selectElement);
+          // Get the jcf instance associated with the select element
+          // @ts-ignore
+          const jcfInstance = jcf.getInstance(selectElement);
 
-        // Check if instance exists and destroy it
-        if (jcfInstance) {
-          jcfInstance.destroy();
-          console.log("Destroying JCF Instance D:<", jcfInstance);
-        } else {
-          console.log("NO INSTANCE AHHHH");
+          // Check if instance exists and destroy it
+          if (jcfInstance) {
+            jcfInstance.destroy();
+            console.log("Destroying JCF Instance D:<", jcfInstance);
+            setJcfDestroyed(true)
+          } else {
+            console.log("NO INSTANCE AHHHH");
 
+          }
+        } catch (error) {
+          console.log(error);
         }
-      } catch (error) {
-        console.log(error);
-      }
     }
-    setInterval(peskyJCF, 10000)
+
+    setInterval(peskyJCF, 500)
 
   }, [])
 
