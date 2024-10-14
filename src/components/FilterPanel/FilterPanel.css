@@ -1,4 +1,4 @@
-#filterWrapper {
+.filterWrapper, #filterWrapper {
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -9,7 +9,7 @@
   top: 20px;
   /* For WebKit browsers (Chrome, Safari) */
 }
-#filterWrapper .filterPanel {
+.filterWrapper .filterPanel, #filterWrapper .filterPanel {
   height: -moz-min-content;
   height: min-content;
   padding: 24px;
@@ -21,15 +21,15 @@
   border-radius: 18px;
   background: #e9e5d4;
 }
-#filterWrapper .filterPanel:first-child {
+.filterWrapper .filterPanel:first-child, #filterWrapper .filterPanel:first-child {
   flex-shrink: 0;
   height: -moz-min-content;
   height: min-content;
 }
-#filterWrapper .filterPanel:last-child {
+.filterWrapper .filterPanel:last-child, #filterWrapper .filterPanel:last-child {
   flex-shrink: 2;
 }
-#filterWrapper .filterPanel div {
+.filterWrapper .filterPanel div, #filterWrapper .filterPanel div {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -37,24 +37,24 @@
   font-weight: 600;
   flex-wrap: nowrap;
 }
-#filterWrapper .filterPanel p {
+.filterWrapper .filterPanel p, #filterWrapper .filterPanel p {
   margin: 0;
   text-wrap: nowrap;
   text-align: left;
 }
-#filterWrapper ::-webkit-scrollbar {
+.filterWrapper ::-webkit-scrollbar, #filterWrapper ::-webkit-scrollbar {
   width: 12px;
   /* Width of the scrollbar */
   height: 12px;
   /* Height of the scrollbar */
 }
-#filterWrapper ::-webkit-scrollbar-thumb {
+.filterWrapper ::-webkit-scrollbar-thumb, #filterWrapper ::-webkit-scrollbar-thumb {
   background-color: #888;
   /* Color of the scrollbar thumb */
   border-radius: 10px;
   /* Rounded corners for the scrollbar thumb */
 }
-#filterWrapper ::-webkit-scrollbar-track {
+.filterWrapper ::-webkit-scrollbar-track, #filterWrapper ::-webkit-scrollbar-track {
   background-color: #f1f1f1;
   /* Color of the scrollbar track */
   border-radius: 10px;

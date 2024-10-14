@@ -22,9 +22,8 @@ function App() {
   const [additionalFiltersCountry, setAdditionalFiltersCountry] = useState<string[]>([])
   const [additionalFiltersWineType, setAdditionalFiltersWineType] = useState<string[]>([])
   const [viewportRes, setViewportRes] = useState({ x: window.innerWidth, y: window.innerHeight })
+  const [isMobile, setIsMobile] = useState(viewportRes.x < 650)
   const [jcfDestroyed, setJcfDestroyed] = useState<boolean>(false)
-  const [isToolbarSticky, setToolbarSticky] = useState<boolean>(false)
-  const [toolbarAnchorRef, setToolbarAnchorRef] = useState<HTMLDivElement | null>(null);
   const sortRef = useRef<HTMLSelectElement>(null);
 
 
@@ -78,13 +77,6 @@ function App() {
     };
   }, []);
 
-  useEffect(() => {
-    console.log("parent toolbar sticky", isToolbarSticky);
-
-
-  }, [isToolbarSticky]);
-
-
 
   useEffect(() => { // assemble list of wine types and countries to reference
     //console.log(wineBottles);
@@ -111,6 +103,7 @@ function App() {
   useEffect(() => { // window size listener
     const handleResize = () => {
       setViewportRes({ x: window.innerWidth, y: window.innerHeight })
+      setIsMobile(window.innerWidth < 650)
     };
 
     handleResize(); // Check on mount
@@ -158,26 +151,15 @@ function App() {
     setFilteredWineBottles(filteredList)
   }
 
-  const getOffsetRight = (): number => {
-    if (toolbarAnchorRef) {
-      const rightPos = toolbarAnchorRef.getBoundingClientRect().right
-      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth; // Account for scrollbar
-      const offset = viewportRes.x - (rightPos + scrollbarWidth)
-      return offset
-    }
-    return 50
-  }
+
+
   return (
     <>
       <div id="appContainer">
-        <h1 style={{ width: '100%', textAlign: 'left', color: '#e9e5d4', height: `${viewportRes.x > 650 ? 0 : 'auto'}`, transform: `${viewportRes.x > 650 ? 'translateY(18px)' : 'none'}` }}>Fairfield Wine Cellar Inventory</h1>
+        <h1 style={{ width: `${isMobile ? '100%' : '60%'}`, textAlign: 'left', color: '#e9e5d4', height: `${isMobile ? 'auto' : 0}`, transform: `${isMobile ? 'none' : 'translateY(18px)'}` }}>Fairfield Wine Cellar Inventory</h1>
 
-        <WithStickyScroll setSticky={setToolbarSticky} setToolbarRef={setToolbarAnchorRef}>
-          <div id="toolbarWrapper" style={{
-            position: `${isToolbarSticky ? 'fixed' : 'absolute'}`,
-            right: `${isToolbarSticky ? `${getOffsetRight()}px` : 0}`,
-            top: `${isToolbarSticky ? `60px` : 0}`
-          }}>
+        <WithStickyScroll divId={'toolbarWrapper'}>
+         
             <div className='filterToolbar'>
               <div>
                 <select ref={sortRef} onChange={onSort}>
@@ -208,21 +190,21 @@ function App() {
                   </WithPopUp>
                 </div> : undefined
             }
-          </div>
+          
         </WithStickyScroll>
 
         <p style={{ color: "#e9e5d4", fontWeight: 500, fontStyle: 'italic', width: '100%', textAlign: 'right', paddingRight: '6px', margin: 0 }}>{filteredWineBottles.length} Results</p>
         <div id="listWrapper">
           {
-            viewportRes.x > 650 ?
-              <div id='filterWrapper'>
-                <WithSidePanel viewportRes={viewportRes} scrollable={true}>
-                  <FilterPanel filters={countries} activeFilters={additionalFiltersCountry} handleFilter={handleFilterCountry} />
-                </WithSidePanel>
-                <WithSidePanel viewportRes={viewportRes} scrollable={true}>
-                  <FilterPanel filters={activeWineTypes} activeFilters={additionalFiltersWineType} handleFilter={handleFilterWineType} />
-                </WithSidePanel>
-              </div> : undefined
+            !isMobile ?
+              <WithStickyScroll  divId='filterWrapper'>
+                  <WithSidePanel viewportRes={viewportRes} scrollable={true}>
+                    <FilterPanel filters={countries} activeFilters={additionalFiltersCountry} handleFilter={handleFilterCountry} />
+                  </WithSidePanel>
+                  <WithSidePanel viewportRes={viewportRes} scrollable={true}>
+                    <FilterPanel filters={activeWineTypes} activeFilters={additionalFiltersWineType} handleFilter={handleFilterWineType} />
+                  </WithSidePanel>
+              </WithStickyScroll> : undefined
           }
           <div id="wineList">
             {filteredWineBottles.length > 0 ? filteredWineBottles.map((bottle, index) => {
