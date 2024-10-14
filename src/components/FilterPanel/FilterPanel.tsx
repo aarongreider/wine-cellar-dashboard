@@ -27,7 +27,9 @@ export function FilterInput({ filter, activeFilters, handleFilter }: InputProps)
     }, [])
 
     return <>
-        <div style={{ gap: '4px', padding: 0 }}><input type='checkbox' checked={checked} value={filter} onChange={() => { handleFilter(filter); setChecked(!checked) }} /><p>{filter}</p></div>
+        <div style={{ gap: '4px', padding: 0 }}><input type='checkbox' checked={checked} value={filter} onChange={() => { handleFilter(filter); setChecked(!checked) }} />
+            <p style={{margin: 0}}>{filter}</p>
+        </div>
     </>
 }
 
@@ -69,7 +71,7 @@ export const WithPopUp = ({ children, title, viewportRes, scrollable }: PanelPro
     return (
         <div className="filterPanel" key={nanoid()} style={{ position: 'relative' }} onClick={toggleVisible}>
             <span style={{ fontSize: '20px', fontVariationSettings: `'FILL' 1` }} className="material-symbols-outlined">bolt</span>
-            <p style={{ fontWeight: 600, textWrap: "nowrap", padding: '5px' }}>{title}</p>
+            <p style={{ fontWeight: 600, textWrap: "nowrap", padding: '5px', margin: 0 }}>{title}</p>
             <div ref={filterRef} style={{
                 display: `${visible ? `flex` : `none`}`,
                 flexDirection: 'column',
