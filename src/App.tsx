@@ -78,7 +78,6 @@ function App() {
     };
   }, []);
 
-
   useEffect(() => { // assemble list of wine types and countries to reference
     //console.log(wineBottles);
 
@@ -120,7 +119,7 @@ function App() {
     return sortBottles(filterBottles(filterAdditionalQueries(filterAdditionalQueries(wineBottles, additionalFiltersWineType), additionalFiltersCountry), searchQuery), sortQuery)
   }
 
-  const onSort = () => {
+  const onSort = () => {    
     const currentVal = sortRef.current?.value ?? ''
     setSortQuery(currentVal)
 

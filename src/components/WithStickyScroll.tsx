@@ -68,6 +68,9 @@ export const WithStickyScroll = ({ divId, children }: WithStickyProps) => {
 
     return <>
         <div style={{ position: 'relative'}} ref={anchorRef}>
+            <div className={divId} style={{zIndex: '-1', opacity: 0}}>
+                {children}
+            </div>
             <div id={divId} style={{
                 position: `${isSticky ? 'fixed' : 'absolute'}`,
                 right: `${isSticky ? `${getOffsetRight(anchorRef.current)}px` : 0}`,
@@ -75,9 +78,7 @@ export const WithStickyScroll = ({ divId, children }: WithStickyProps) => {
             }}>
                 {children}
             </div>
-            <div className={divId} style={{zIndex: '-1'}}>
-                {children}
-            </div>
+            
             
         </div>
     </>
