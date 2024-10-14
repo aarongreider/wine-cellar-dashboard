@@ -43,8 +43,9 @@ function App() {
 
   useEffect(() => { // Setting up the window.onload event inside useEffect
     /* UNBIND JCF FROM SELECT OBJECTS */
+    let numRecursions = 0;
     const peskyJCF = () => {
-      if (!jcfDestroyed)
+      if (!jcfDestroyed && numRecursions < 10)
         try {
           //console.log("Getting JCF Instance");
 
@@ -58,7 +59,7 @@ function App() {
           // Check if instance exists and destroy it
           if (jcfInstance) {
             jcfInstance.destroy();
-            //console.log("Destroying JCF Instance D:<", jcfInstance);
+            console.log("Destroying JCF Instance D:<", jcfInstance);
             setJcfDestroyed(true)
           } else {
             //console.log("NO INSTANCE AHHHH");
@@ -69,11 +70,11 @@ function App() {
         }
     }
 
-    window.onload = peskyJCF
+    window.addEventListener('load', peskyJCF);
 
     // Cleanup the event listener when the component unmounts
     return () => {
-      window.onload = null; // Reset to prevent memory leaks
+      window.removeEventListener('load', peskyJCF);
     };
   }, []);
 
@@ -180,7 +181,7 @@ function App() {
               </div>
             </div>
             {
-              viewportRes.x <= 650 ?
+              isMobile ?
                 <div className='filterToolbar'>
                   <WithPopUp viewportRes={viewportRes} title='Country' scrollable={true}>
                     <FilterPanel filters={countries} activeFilters={additionalFiltersCountry} handleFilter={handleFilterCountry} />
@@ -208,7 +209,7 @@ function App() {
           }
           <div id="wineList">
             {filteredWineBottles.length > 0 ? filteredWineBottles.map((bottle, index) => {
-              return <>{Number(bottle.Total) > 0 ? <WineCard key={index} bottle={bottle}></WineCard> : undefined}</>
+              return Number(bottle.Total) > 0 ? <WineCard key={index} bottle={bottle}></WineCard> : undefined
               //return <><WineCard key={index} bottle={bottle}></WineCard></>
             }) : <div style={{ flexDirection: 'column' }} className='wineBottle'><p>No Wine Bottles Found</p><p>{notFoundIcons[Math.floor(Math.random() * 3)]}</p></div>}
           </div>

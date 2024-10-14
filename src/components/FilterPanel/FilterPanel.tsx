@@ -10,8 +10,8 @@ interface FilterProps {
 
 export function FilterPanel({ filters, activeFilters, handleFilter }: FilterProps) {
     // a relocatable, resizable filter display
-    return <>{filters.map((filter) => {
-        return <><FilterInput filter={filter} activeFilters={activeFilters} key={filter} handleFilter={handleFilter} /></>
+    return <>{filters.map((filter, index) => {
+        return <FilterInput filter={filter} activeFilters={activeFilters} key={`${filter}-${index}`} handleFilter={handleFilter} />
     })}</>
 }
 
@@ -27,7 +27,7 @@ export function FilterInput({ filter, activeFilters, handleFilter }: InputProps)
     }, [])
 
     return <>
-        <div style={{ gap: '4px', padding: 0 }}><input type='checkbox' checked={checked} value={filter} onChange={() => { handleFilter(filter); setChecked(!checked) }} />
+        <div style={{ gap: '4px', padding: 0 }} key={`${filter}-${nanoid()}`}><input type='checkbox' checked={checked} value={filter} onChange={() => { handleFilter(filter); setChecked(!checked) }} />
             <p style={{margin: 0}}>{filter}</p>
         </div>
     </>

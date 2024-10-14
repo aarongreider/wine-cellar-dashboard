@@ -32,7 +32,7 @@ export const WithStickyScroll = ({ divId, children }: WithStickyProps) => {
         } else if (initialToolbarPosition && userScrollY <= (initialToolbarPosition - 60)) {
             setSticky(false)
         }
-        console.log(initialToolbarPosition);
+        //console.log(initialToolbarPosition);
 
     }, [initialToolbarPosition])
 
@@ -67,7 +67,7 @@ export const WithStickyScroll = ({ divId, children }: WithStickyProps) => {
       }
 
     return <>
-        <div style={{ position: 'relative', /* height: `${isMobile ? '92px' : '40px'}` */ }} ref={anchorRef}>
+        <div style={{ position: 'relative'}} ref={anchorRef}>
             <div id={divId} style={{
                 position: `${isSticky ? 'fixed' : 'absolute'}`,
                 right: `${isSticky ? `${getOffsetRight(anchorRef.current)}px` : 0}`,
