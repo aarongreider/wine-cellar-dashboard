@@ -193,7 +193,7 @@ function App() {
 
           <div className='filterToolbar'>
             <div>
-              <select ref={sortRef} onChange={onSort}>
+              <select ref={sortRef} onChange={onSort} style={{textAlign: `${isMobile ? 'center' : "left"}`}}>
                 <option value={''}>Sort</option>
                 <option value={'price descending'}>Price ↓</option>
                 <option value={'price ascending'}>Price ↑</option>
