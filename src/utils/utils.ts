@@ -17,7 +17,8 @@ const endpoints = {
 
 export const fetchBottleData = async (): Promise<WineBottle[]> => {
     try {
-        const response = await fetch(endpoints.fairfield);
+        const response = await fetch(endpoints.eastgate);
+        console.log(endpoints.eastgate);
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
@@ -312,5 +313,4 @@ export const wineTypes = [
     "Kadarka",
     "Aleatico",
     "Friulano"
-  ];
-  
+];
