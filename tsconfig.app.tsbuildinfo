@@ -1,1 +1,1 @@
-{"root":["./src/app.tsx","./src/main.tsx","./src/vite-env.d.ts","./src/components/withstickyscroll.tsx","./src/components/filterpanel/filterpanel.tsx","./src/components/winecard/winecard.tsx","./src/utils/utils.ts"],"version":"5.6.3"}
+{"root":["./src/app.tsx","./src/main.tsx","./src/vite-env.d.ts","./src/components/loadingwidget.tsx","./src/components/withstickyscroll.tsx","./src/components/filterpanel/filterpanel.tsx","./src/components/winecard/winecard.tsx","./src/utils/utils.ts"],"version":"5.6.3"}

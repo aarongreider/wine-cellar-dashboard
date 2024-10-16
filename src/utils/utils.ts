@@ -15,9 +15,10 @@ const endpoints = {
     github: 'https://aaron.greider.org/wine-cellar-dashboard/dist/fairfield-wine.json'
 }
 
-export const fetchBottleData = async (): Promise<WineBottle[]> => {
+export const fetchBottleData = async (location: string): Promise<WineBottle[]> => {
     try {
-        const response = await fetch(endpoints.eastgate);
+        //@ts-ignore
+        const response = await fetch(endpoints[`${location}`]);
         console.log(endpoints.eastgate);
         if (!response.ok) {
             throw new Error('Network response was not ok');
