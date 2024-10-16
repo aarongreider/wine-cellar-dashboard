@@ -9,15 +9,15 @@ export type WineBottle = {
 }
 
 const endpoints = {
-    fairfield: 'https://mobile-api-dev.junglejims.com/fairfield-wine.json',
-    eastgate: 'https://mobile-api-dev.junglejims.com/eastgate-wine.json',
+    fairfield: 'https://mobile-api-dev.junglejims.com/fairfield-wine-cellar.json',
+    eastgate: 'https://mobile-api-dev.junglejims.com/eastgate-wine-cellar.json',
     local: '../../public/fairfield-wine.json',
     github: 'https://aaron.greider.org/wine-cellar-dashboard/dist/fairfield-wine.json'
 }
 
 export const fetchBottleData = async (): Promise<WineBottle[]> => {
     try {
-        const response = await fetch(endpoints.github);
+        const response = await fetch(endpoints.fairfield);
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
