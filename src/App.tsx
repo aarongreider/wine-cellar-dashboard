@@ -6,6 +6,7 @@ import { wineTypes } from './utils/utils'
 import { FilterPanel, WithPopUp, WithSidePanel } from './components/FilterPanel/FilterPanel'
 import { WithStickyScroll } from './components/WithStickyScroll'
 import { LoadingWidget } from './components/LoadingWidget'
+import { WithPinnedScroll } from './components/WithPinnedScroll'
 
 const notFoundIcons = [
   `( ╥﹏╥) ノシ`,
@@ -28,6 +29,7 @@ function App() {
   const [isMobile, setIsMobile] = useState(viewportRes.x < 650)
   const [jcfDestroyed, setJcfDestroyed] = useState<boolean>(false)
   const sortRef = useRef<HTMLSelectElement>(null);
+  const appContainerRef = useRef<HTMLDivElement>(null);
 
 
   useEffect(() => {  // Get the pathname from the current URL
@@ -43,6 +45,7 @@ function App() {
       setStoreLocation(location)
     } else {
       console.log("No valid segment found.");
+      setStoreLocation("local")
     }
   }, [])
 
@@ -186,14 +189,14 @@ function App() {
 
   return (
     <>
-      <div id="appContainer">
+      <div id="appContainer" ref={appContainerRef}>
         <h1 style={{ width: `${isMobile ? '100%' : '60%'}`, textAlign: 'left', color: '#e9e5d4', height: `${isMobile ? 'auto' : 0}`, transform: `${isMobile ? 'none' : 'translateY(18px)'}` }}>{storeLocation && storeLocation.charAt(0).toUpperCase() + storeLocation.slice(1)} Wine Cellar Inventory</h1>
 
-        <WithStickyScroll divId={'toolbarWrapper'}>
+        {/* <WithStickyScroll divId={'toolbarWrapper'}>
 
           <div className='filterToolbar'>
             <div>
-              <select ref={sortRef} onChange={onSort} style={{textAlign: `${isMobile ? 'center' : "left"}`}}>
+              <select ref={sortRef} onChange={onSort} style={{ textAlign: `${isMobile ? 'center' : "left"}` }}>
                 <option value={''}>Sort</option>
                 <option value={'price descending'}>Price ↓</option>
                 <option value={'price ascending'}>Price ↑</option>
@@ -222,7 +225,48 @@ function App() {
               </div> : undefined
           }
 
-        </WithStickyScroll>
+        </WithStickyScroll> */}
+
+        <WithPinnedScroll
+          divId={'toolbarWrapper'}
+          parentRef={appContainerRef}
+          filteredWines={[]}
+          startTrigger={`top+=${60} top+=${60}`}
+          endTrigger={`bottom top+=${140}`}
+        >
+
+          <div className='filterToolbar'>
+            <div>
+              <select ref={sortRef} onChange={onSort} style={{ textAlign: `${isMobile ? 'center' : "left"}` }}>
+                <option value={''}>Sort</option>
+                <option value={'price descending'}>Price ↓</option>
+                <option value={'price ascending'}>Price ↑</option>
+                <option value={'year descending'}>Year ↓</option>
+                <option value={'year ascending'}>Year ↑</option>
+                <option value={'alphabetically'}>A-Z</option>
+              </select>
+            </div>
+            <div className='inputWrapper'>
+              <input type="text"
+                placeholder="Search..."
+                value={searchQuery ?? undefined}
+                onChange={(e) => setSearchQuery(e.target.value)} />
+              <span className="material-symbols-outlined">search</span>
+            </div>
+          </div>
+          {
+            isMobile ?
+              <div className='filterToolbar'>
+                <WithPopUp viewportRes={viewportRes} title='Country' scrollable={true}>
+                  <FilterPanel filters={countries} activeFilters={additionalFiltersCountry} handleFilter={handleFilterCountry} />
+                </WithPopUp>
+                <WithPopUp viewportRes={viewportRes} title='Wine Type' scrollable={true}>
+                  <FilterPanel filters={activeWineTypes} activeFilters={additionalFiltersWineType} handleFilter={handleFilterWineType} />
+                </WithPopUp>
+              </div> : undefined
+          }
+
+        </WithPinnedScroll>
 
         <p style={{ color: "#e9e5d4", fontWeight: 500, fontStyle: 'italic', width: '100%', textAlign: 'right', paddingRight: '6px', margin: 0 }}>{filteredWineBottles.length} Results</p>
 
