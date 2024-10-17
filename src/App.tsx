@@ -36,10 +36,10 @@ function App() {
   const appContainerRef = useRef<HTMLDivElement>(null)
   const listWrapperRef = useRef<HTMLDivElement>(null)
 
-/*   useEffect(() => {
-    ScrollTrigger.refresh()
-}, [filteredWineBottles]);
- */
+  useEffect(() => {
+    window.addEventListener('load', () => { handleFilterCountry("") });
+  }, []);
+
   useEffect(() => {  // Get the pathname from the current URL
     const pathname = window.location.pathname;
     //const pathname = "/wine-cellar-eastgate/";
@@ -200,11 +200,13 @@ function App() {
       <div id="appContainer" ref={appContainerRef}>
         <h1 style={{ width: `${isMobile ? '100%' : '60%'}`, textAlign: 'left', color: '#e9e5d4', height: `${isMobile ? 'auto' : 0}`, transform: `${isMobile ? 'none' : 'translateY(18px)'}` }}>{storeLocation && storeLocation.charAt(0).toUpperCase() + storeLocation.slice(1)} Wine Cellar Inventory</h1>
 
-        {<WithPinnedScroll divId={'toolbarWrapper'} parentWrapper={appContainerRef.current} filteredWines={filteredWineBottles} startTrigger={`top+=${60} top+=${60}`} endTrigger={`bottom top+=${140}`}>
+        {<WithPinnedScroll divId={'toolbarWrapper'} parentWrapper={appContainerRef.current} filteredWines={filteredWineBottles}
+          startTrigger={`top+=${60} top+=${60}`} endTrigger={`bottom top+=${140}`} appLoaded={!appLoading}
+          setFilteredWines={setFilteredWineBottles}>
 
           <div className='filterToolbar'>
             <div>
-              <select ref={sortRef} onChange={onSort} style={{textAlign: `${isMobile ? 'center' : "left"}`}}>
+              <select ref={sortRef} onChange={onSort} style={{ textAlign: `${isMobile ? 'center' : "left"}` }}>
                 <option value={''}>Sort</option>
                 <option value={'price descending'}>Price ↓</option>
                 <option value={'price ascending'}>Price ↑</option>
@@ -241,8 +243,9 @@ function App() {
           appLoading ? <LoadingWidget /> :
             <div id="listWrapper" ref={listWrapperRef}>
               {
-                !isMobile ?<>
-                  <WithPinnedScroll divId='filterWrapper' parentWrapper={listWrapperRef.current} filteredWines={filteredWineBottles} startTrigger={`top top+=${60}`}>
+                !isMobile ? <>
+                  <WithPinnedScroll divId='filterWrapper' parentWrapper={listWrapperRef.current} filteredWines={filteredWineBottles}
+                    startTrigger={`top top+=${60}`} setFilteredWines={setFilteredWineBottles}>
                     <WithSidePanel viewportRes={viewportRes} scrollable={true}>
                       <FilterPanel filters={countries} activeFilters={additionalFiltersCountry} handleFilter={handleFilterCountry} />
                     </WithSidePanel>
@@ -260,9 +263,10 @@ function App() {
             </div>
         }
       </div >
-      {/* {(storeLocation === "local") && <div style={{width: '100svw', overflow: 'hidden'}}><img src='../public/footer.png'></img></div>}
-      {(storeLocation === "local") && <div style={{width: '100svw', overflow: 'hidden'}}><img src='../public/footer.png'></img></div>}
-      {(storeLocation === "local") && <div style={{width: '100svw', overflow: 'hidden'}}><img src='../public/footer.png'></img></div>} */}
+      {(storeLocation === "local") && <div style={{ width: '100svw', overflow: 'hidden', position: 'fixed' }}><img src='../public/header.png'></img></div>}
+      {(storeLocation === "local") && <div style={{ width: '100svw', overflow: 'hidden' }}><img src='../public/footer.png'></img></div>}
+      {(storeLocation === "local") && <div style={{ width: '100svw', overflow: 'hidden' }}><img src='../public/footer.png'></img></div>}
+      {(storeLocation === "local") && <div style={{ width: '100svw', overflow: 'hidden' }}><img src='../public/footer.png'></img></div>}
     </>
   )
 }
