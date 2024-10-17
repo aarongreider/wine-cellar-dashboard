@@ -43,7 +43,7 @@ export const WithPinnedScroll = ({ parentWrapper, divId, filteredWines, startTri
                         pin: targetElement, // Pin the target element
                         pinSpacing: false, // No extra space added during pinning
                         scrub: true, // Smooth transition to mimic sticky behavior
-                        markers: true, // Optional: for debugging
+                        // markers: true, // Optional: for debugging
                     }
                 }
             );
