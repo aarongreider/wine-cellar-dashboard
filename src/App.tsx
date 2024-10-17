@@ -4,14 +4,19 @@ import { fetchBottleData, filterAdditionalQueries, filterBottles, filterWineType
 import { WineCard } from './components/WineCard/WineCard'
 import { wineTypes } from './utils/utils'
 import { FilterPanel, WithPopUp, WithSidePanel } from './components/FilterPanel/FilterPanel'
-import { WithStickyScroll } from './components/WithStickyScroll'
 import { LoadingWidget } from './components/LoadingWidget'
+import { WithPinnedScroll } from './components/WithPinnedScroll'
+
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import gsap from 'gsap'
 
 const notFoundIcons = [
   `( ╥﹏╥) ノシ`,
   `( ˘ ³˘)ノ°ﾟº❍｡`,
   `(╯°□°)╯`,
 ]
+
+gsap.registerPlugin(ScrollTrigger)
 
 function App() {
   const [appLoading, setAppLoading] = useState<boolean>(true)
@@ -28,8 +33,13 @@ function App() {
   const [isMobile, setIsMobile] = useState(viewportRes.x < 650)
   const [jcfDestroyed, setJcfDestroyed] = useState<boolean>(false)
   const sortRef = useRef<HTMLSelectElement>(null);
+  const appContainerRef = useRef<HTMLDivElement>(null)
+  const listWrapperRef = useRef<HTMLDivElement>(null)
 
-
+/*   useEffect(() => {
+    ScrollTrigger.refresh()
+}, [filteredWineBottles]);
+ */
   useEffect(() => {  // Get the pathname from the current URL
     const pathname = window.location.pathname;
     //const pathname = "/wine-cellar-eastgate/";
@@ -43,28 +53,11 @@ function App() {
       setStoreLocation(location)
     } else {
       console.log("No valid segment found.");
+      if (`${window.location}`.includes('localhost')) {
+        setStoreLocation("local")
+      }
     }
   }, [])
-
-  useEffect(() => {  // fetch the initial data and set the state
-    const fetchData = async () => {
-      if (storeLocation) {
-        try {
-          //console.log("Fetching data");
-          const data = await fetchBottleData(storeLocation);
-          setWineBottles(data);
-          setFilteredWineBottles(data)
-        } catch {
-          //console.log("Error fetching data in useEffect");
-        }
-      }
-    };
-
-    fetchData();
-
-  }, [storeLocation])
-
-
 
   useEffect(() => { // Setting up the window.onload event inside useEffect
     /* UNBIND JCF FROM SELECT OBJECTS */
@@ -102,6 +95,24 @@ function App() {
       window.removeEventListener('load', peskyJCF);
     };
   }, []);
+
+  useEffect(() => {  // fetch the initial data and set the state
+    const fetchData = async () => {
+      if (storeLocation) {
+        try {
+          //console.log("Fetching data");
+          const data = await fetchBottleData(storeLocation);
+          setWineBottles(data);
+          setFilteredWineBottles(data)
+        } catch {
+          //console.log("Error fetching data in useEffect");
+        }
+      }
+    };
+
+    fetchData();
+
+  }, [storeLocation])
 
   useEffect(() => { // set the loading state of the app when filtered bottles is set successfully
     if (appLoading && (wineBottles.length > 0)) {
@@ -186,10 +197,10 @@ function App() {
 
   return (
     <>
-      <div id="appContainer">
+      <div id="appContainer" ref={appContainerRef}>
         <h1 style={{ width: `${isMobile ? '100%' : '60%'}`, textAlign: 'left', color: '#e9e5d4', height: `${isMobile ? 'auto' : 0}`, transform: `${isMobile ? 'none' : 'translateY(18px)'}` }}>{storeLocation && storeLocation.charAt(0).toUpperCase() + storeLocation.slice(1)} Wine Cellar Inventory</h1>
 
-        <WithStickyScroll divId={'toolbarWrapper'}>
+        {<WithPinnedScroll divId={'toolbarWrapper'} parentWrapper={appContainerRef.current} filteredWines={filteredWineBottles} startTrigger={`top+=${60} top+=${60}`} endTrigger={`bottom top+=${140}`}>
 
           <div className='filterToolbar'>
             <div>
@@ -222,23 +233,23 @@ function App() {
               </div> : undefined
           }
 
-        </WithStickyScroll>
+        </WithPinnedScroll>}
 
         <p style={{ color: "#e9e5d4", fontWeight: 500, fontStyle: 'italic', width: '100%', textAlign: 'right', paddingRight: '6px', margin: 0 }}>{filteredWineBottles.length} Results</p>
 
         {
           appLoading ? <LoadingWidget /> :
-            <div id="listWrapper">
+            <div id="listWrapper" ref={listWrapperRef}>
               {
-                !isMobile ?
-                  <WithStickyScroll divId='filterWrapper'>
+                !isMobile ?<>
+                  <WithPinnedScroll divId='filterWrapper' parentWrapper={listWrapperRef.current} filteredWines={filteredWineBottles} startTrigger={`top top+=${60}`}>
                     <WithSidePanel viewportRes={viewportRes} scrollable={true}>
                       <FilterPanel filters={countries} activeFilters={additionalFiltersCountry} handleFilter={handleFilterCountry} />
                     </WithSidePanel>
                     <WithSidePanel viewportRes={viewportRes} scrollable={true}>
                       <FilterPanel filters={activeWineTypes} activeFilters={additionalFiltersWineType} handleFilter={handleFilterWineType} />
                     </WithSidePanel>
-                  </WithStickyScroll> : undefined
+                  </WithPinnedScroll></> : undefined
               }
               <div id="wineList">
                 {filteredWineBottles.length > 0 ? filteredWineBottles.map((bottle, index) => {
@@ -249,6 +260,9 @@ function App() {
             </div>
         }
       </div >
+      {/* {(storeLocation === "local") && <div style={{width: '100svw', overflow: 'hidden'}}><img src='../public/footer.png'></img></div>}
+      {(storeLocation === "local") && <div style={{width: '100svw', overflow: 'hidden'}}><img src='../public/footer.png'></img></div>}
+      {(storeLocation === "local") && <div style={{width: '100svw', overflow: 'hidden'}}><img src='../public/footer.png'></img></div>} */}
     </>
   )
 }

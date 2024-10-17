@@ -62,8 +62,6 @@ select {
   justify-content: flex-end;
   gap: 12px;
   width: 100%;
-  position: sticky;
-  top: 20px;
   filter: drop-shadow(rgba(0, 0, 0, 0.2) 0px 2px 4px);
 }
 

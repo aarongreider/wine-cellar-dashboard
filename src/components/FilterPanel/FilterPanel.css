@@ -2,11 +2,9 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
-  position: sticky;
   height: -moz-min-content;
   height: min-content;
   max-height: calc(100vh - 40px);
-  top: 20px;
   /* For WebKit browsers (Chrome, Safari) */
 }
 .filterWrapper .filterPanel, #filterWrapper .filterPanel {
