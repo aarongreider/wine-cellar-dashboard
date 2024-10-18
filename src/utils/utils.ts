@@ -11,7 +11,7 @@ export type WineBottle = {
 const endpoints = {
     fairfield: 'https://mobile-api-dev.junglejims.com/fairfield-wine-cellar.json',
     eastgate: 'https://mobile-api-dev.junglejims.com/eastgate-wine-cellar.json',
-    local: '../../public/fairfield-wine.json',
+    local: '../../public/eastgate-wine.json',
     github: 'https://aaron.greider.org/wine-cellar-dashboard/dist/fairfield-wine.json'
 }
 
@@ -78,7 +78,7 @@ export const sortBottles = (filteredWineBottles: WineBottle[], sortQuery: string
     const cleanPrice = (price: number): number => {
         // Remove non-numeric characters except periods (.) using a regex
         const cleanedPrice = `${price}`.replace(/[^0-9.]/g, '');
-        return parseFloat(cleanedPrice); // Convert cleaned string to a float
+        return cleanedPrice === "" ? 0.0 : parseFloat(cleanedPrice); // Convert cleaned string to a float
     };
 
     if (sortQuery === '') {
@@ -129,8 +129,8 @@ export const sortBottles = (filteredWineBottles: WineBottle[], sortQuery: string
             case "price ascending":
                 {
                     filteredWineBottles.sort((a, b) => {
-                        const aPrice = cleanPrice((a.OhioRetail)); // Convert price to number
-                        const bPrice = cleanPrice(b.OhioRetail);
+                        const aPrice = cleanPrice(a.OhioRetail ? a.OhioRetail : 0); // Convert price to number
+                        const bPrice = cleanPrice(b.OhioRetail ? b.OhioRetail : 0);
 
                         return aPrice - bPrice; // Ascending order by Price
                     })
@@ -139,8 +139,8 @@ export const sortBottles = (filteredWineBottles: WineBottle[], sortQuery: string
             case "price descending":
                 {
                     filteredWineBottles.sort((a, b) => {
-                        const aPrice = cleanPrice(a.OhioRetail); // Convert price to number
-                        const bPrice = cleanPrice(b.OhioRetail);
+                        const aPrice = cleanPrice(a.OhioRetail ? a.OhioRetail : 0); // Convert price to number
+                        const bPrice = cleanPrice(b.OhioRetail ? b.OhioRetail : 0);
 
                         return bPrice - aPrice; // Ascending order by Price
                     })

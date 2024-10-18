@@ -17,7 +17,7 @@ export function WineCard({ bottle }: cardProps) {
                         `${bottle.SubRegion} ` : undefined}</p>
             </div>
             <div>
-                <h3>${bottle.OhioRetail}</h3>
+                <h3>{bottle.OhioRetail ? `$${bottle.OhioRetail}` : 'N/A'}</h3>
                 <p>{bottle.Total} in stock</p>
             </div>
         </div>

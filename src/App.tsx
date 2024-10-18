@@ -33,7 +33,7 @@ function App() {
 
 
   useEffect(() => {  // Get the pathname from the current URL
-    console.log("v 2.0");
+    console.log("v 2.2");
 
     const processURL = () => {
       const pathname = window.location.pathname;
@@ -55,8 +55,6 @@ function App() {
     const assignWidths = () => {
       // get scrollbar width
       const scrollbarWidth = document.documentElement.clientWidth - viewportRes.x
-      console.log('scrollbarWidth', scrollbarWidth);
-
 
       // brute force the correct widths and overflow properties
       const wrapper: HTMLDivElement | null = document.getElementById('wrapper') as HTMLDivElement
@@ -302,7 +300,7 @@ function App() {
                 {filteredWineBottles.length > 0 ? filteredWineBottles.map((bottle, index) => {
                   return Number(bottle.Total) > 0 ? <WineCard key={index} bottle={bottle}></WineCard> : undefined
                   //return <><WineCard key={index} bottle={bottle}></WineCard></>
-                }) : <div style={{ flexDirection: 'column' }} className='wineBottle'><p>No Wine Bottles Found</p><p>{notFoundIcons[Math.floor(Math.random() * 3)]}</p></div>}
+                }) : <div style={{ flexDirection: 'column' }} className='wineBottle'><p>No Wine Bottles Found</p><p>{notFoundIcons[Math.floor(Math.random() * 4)]}</p></div>}
               </div>
             </div>
         }
