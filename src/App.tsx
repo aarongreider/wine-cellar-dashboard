@@ -33,7 +33,7 @@ function App() {
 
 
   useEffect(() => {  // Get the pathname from the current URL
-    console.log("v 1.8");
+    console.log("v 1.9");
 
     const processURL = () => {
       const pathname = window.location.pathname;
@@ -110,30 +110,32 @@ function App() {
     /* UNBIND JCF FROM SELECT OBJECTS */
     let numRecursions = 0;
     const peskyJCF = () => {
-      if (!jcfDestroyed && numRecursions < 10)
-        console.log(numRecursions);
+      if (!jcfDestroyed && numRecursions < 10) {
+        console.log(numRecursions)
+        numRecursions++
 
-      try {
-        //console.log("Getting JCF Instance");
+        try {
+          //console.log("Getting JCF Instance");
 
-        const selectElement = document.querySelector('select');
-        //console.log("select object: ", selectElement);
+          const selectElement = document.querySelector('select');
+          //console.log("select object: ", selectElement);
 
-        // Get the jcf instance associated with the select element
-        // @ts-ignore
-        const jcfInstance = jcf.getInstance(selectElement);
+          // Get the jcf instance associated with the select element
+          // @ts-ignore
+          const jcfInstance = jcf.getInstance(selectElement);
 
-        // Check if instance exists and destroy it
-        if (jcfInstance) {
-          jcfInstance.destroy();
-          console.log("Destroying JCF Instance D:<", jcfInstance);
-          setJcfDestroyed(true)
-        } else {
-          console.log("NO INSTANCE AHHHH");
-          setTimeout(peskyJCF, 500)
+          // Check if instance exists and destroy it
+          if (jcfInstance) {
+            jcfInstance.destroy();
+            console.log("Destroying JCF Instance D:<", jcfInstance);
+            setJcfDestroyed(true)
+          } else {
+            console.log("NO INSTANCE AHHHH");
+            setTimeout(peskyJCF, 500)
+          }
+        } catch (error) {
+          console.log(error);
         }
-      } catch (error) {
-        console.log(error);
       }
     }
 
@@ -274,11 +276,11 @@ function App() {
           {filteredWineBottles.length} Results
           {additionalFiltersCountry.length > 0 && ` >`}
           {additionalFiltersCountry.map((filter, index) => {
-            return <span key={index}>{` ${filter}${index == additionalFiltersCountry.length-1 ? `` : `,`}`}</span>
+            return <span key={index}>{` ${filter}${index == additionalFiltersCountry.length - 1 ? `` : `,`}`}</span>
           })}
           {additionalFiltersWineType.length > 0 && ` >`}
           {additionalFiltersWineType.map((filter, index) => {
-            return <span key={index}>{` ${filter}${index == additionalFiltersWineType.length-1 ? `` : `,`}`}</span>
+            return <span key={index}>{` ${filter}${index == additionalFiltersWineType.length - 1 ? `` : `,`}`}</span>
           })}
         </p>
 
