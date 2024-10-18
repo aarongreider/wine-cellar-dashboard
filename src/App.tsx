@@ -192,8 +192,9 @@ function App() {
       <div id="appContainer" ref={appContainerRef}>
         <h1 style={{ width: `${isMobile ? '100%' : '60%'}`, textAlign: 'left', color: '#e9e5d4', height: `${isMobile ? 'auto' : 0}`, transform: `${isMobile ? 'none' : 'translateY(18px)'}` }}>{storeLocation && storeLocation.charAt(0).toUpperCase() + storeLocation.slice(1)} Wine Cellar Inventory</h1>
 
-        {/* <WithStickyScroll divId={'toolbarWrapper'}>
 
+
+        <div id='toolbarWrapper'>
           <div className='filterToolbar'>
             <div>
               <select ref={sortRef} onChange={onSort} style={{ textAlign: `${isMobile ? 'center' : "left"}` }}>
@@ -213,6 +214,7 @@ function App() {
               <span className="material-symbols-outlined">search</span>
             </div>
           </div>
+
           {
             isMobile ?
               <div className='filterToolbar'>
@@ -224,49 +226,9 @@ function App() {
                 </WithPopUp>
               </div> : undefined
           }
+        </div>
 
-        </WithStickyScroll> */}
 
-        <WithPinnedScroll
-          divId={'toolbarWrapper'}
-          parentRef={appContainerRef}
-          filteredWines={[]}
-          startTrigger={`top+=${60} top+=${60}`}
-          endTrigger={`bottom top+=${140}`}
-        >
-
-          <div className='filterToolbar'>
-            <div>
-              <select ref={sortRef} onChange={onSort} style={{ textAlign: `${isMobile ? 'center' : "left"}` }}>
-                <option value={''}>Sort</option>
-                <option value={'price descending'}>Price ↓</option>
-                <option value={'price ascending'}>Price ↑</option>
-                <option value={'year descending'}>Year ↓</option>
-                <option value={'year ascending'}>Year ↑</option>
-                <option value={'alphabetically'}>A-Z</option>
-              </select>
-            </div>
-            <div className='inputWrapper'>
-              <input type="text"
-                placeholder="Search..."
-                value={searchQuery ?? undefined}
-                onChange={(e) => setSearchQuery(e.target.value)} />
-              <span className="material-symbols-outlined">search</span>
-            </div>
-          </div>
-          {
-            isMobile ?
-              <div className='filterToolbar'>
-                <WithPopUp viewportRes={viewportRes} title='Country' scrollable={true}>
-                  <FilterPanel filters={countries} activeFilters={additionalFiltersCountry} handleFilter={handleFilterCountry} />
-                </WithPopUp>
-                <WithPopUp viewportRes={viewportRes} title='Wine Type' scrollable={true}>
-                  <FilterPanel filters={activeWineTypes} activeFilters={additionalFiltersWineType} handleFilter={handleFilterWineType} />
-                </WithPopUp>
-              </div> : undefined
-          }
-
-        </WithPinnedScroll>
 
         <p style={{ color: "#e9e5d4", fontWeight: 500, fontStyle: 'italic', width: '100%', textAlign: 'right', paddingRight: '6px', margin: 0 }}>{filteredWineBottles.length} Results</p>
 
@@ -275,14 +237,14 @@ function App() {
             <div id="listWrapper">
               {
                 !isMobile ?
-                  <WithStickyScroll divId='filterWrapper'>
+                  <div id="filterWrapper">
                     <WithSidePanel viewportRes={viewportRes} scrollable={true}>
                       <FilterPanel filters={countries} activeFilters={additionalFiltersCountry} handleFilter={handleFilterCountry} />
                     </WithSidePanel>
                     <WithSidePanel viewportRes={viewportRes} scrollable={true}>
                       <FilterPanel filters={activeWineTypes} activeFilters={additionalFiltersWineType} handleFilter={handleFilterWineType} />
                     </WithSidePanel>
-                  </WithStickyScroll> : undefined
+                  </div> : undefined
               }
               <div id="wineList">
                 {filteredWineBottles.length > 0 ? filteredWineBottles.map((bottle, index) => {
