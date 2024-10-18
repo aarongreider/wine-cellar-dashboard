@@ -4,8 +4,8 @@ export type WineBottle = {
     Country: string,
     Region: string,
     SubRegion: string,
-    Total: string,
-    OhioRetail: string,
+    Total: number,
+    OhioRetail: number,
 }
 
 const endpoints = {
@@ -75,9 +75,9 @@ export const filterAdditionalQueries = (wineBottles: WineBottle[], additionalQue
 
 export const sortBottles = (filteredWineBottles: WineBottle[], sortQuery: string): WineBottle[] => {
     // Sort the filtered array by Vintage year, with undated bottles at the bottom
-    const cleanPrice = (price: string): number => {
+    const cleanPrice = (price: number): number => {
         // Remove non-numeric characters except periods (.) using a regex
-        const cleanedPrice = price.replace(/[^0-9.]/g, '');
+        const cleanedPrice = `${price}`.replace(/[^0-9.]/g, '');
         return parseFloat(cleanedPrice); // Convert cleaned string to a float
     };
 
