@@ -10,6 +10,7 @@ body {
   align-items: center;
   position: relative;
   overflow: visible;
+  z-index: 100;
 }
 
 #root {
