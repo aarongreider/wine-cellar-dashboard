@@ -33,7 +33,7 @@ function App() {
 
 
   useEffect(() => {  // Get the pathname from the current URL
-    console.log("v 2.2");
+    console.log("v 2.3");
 
     const processURL = () => {
       const pathname = window.location.pathname;
@@ -109,7 +109,6 @@ function App() {
     let numRecursions = 0;
     const peskyJCF = () => {
       if (!jcfDestroyed && numRecursions < 10) {
-        console.log(numRecursions)
         numRecursions++
 
         try {
@@ -128,7 +127,7 @@ function App() {
             console.log("Destroying JCF Instance D:<", jcfInstance);
             setJcfDestroyed(true)
           } else {
-            console.log("NO INSTANCE AHHHH");
+            //console.log("NO INSTANCE AHHHH");
             setTimeout(peskyJCF, 500)
           }
         } catch (error) {

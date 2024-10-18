@@ -19,7 +19,7 @@ export const fetchBottleData = async (location: string): Promise<WineBottle[]> =
     try {
         //@ts-ignore
         const response = await fetch(endpoints[`${location}`]);
-        console.log(endpoints.eastgate);
+        //console.log(endpoints.eastgate);
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
@@ -40,12 +40,11 @@ export const filterBottles = (wineBottles: WineBottle[], searchQuery: string): W
     if (cleanQuery) {
         return wineBottles.filter((bottle) => {
             return (
-                `${bottle.Description}`?.toLowerCase().includes(cleanQuery) ||
-                `${bottle.Vintage}`?.toLowerCase().includes(cleanQuery) ||
+                `${bottle.Vintage} ${bottle.Description}`?.toLowerCase().includes(cleanQuery) ||
                 `${bottle.Country}`?.toLowerCase().includes(cleanQuery) ||
                 `${bottle.Region}`?.toLowerCase().includes(cleanQuery) ||
                 `${bottle.SubRegion}`?.toLowerCase().includes(cleanQuery) ||
-                `${bottle.OhioRetail}`?.toLowerCase().includes(cleanQuery)
+                `$${bottle.OhioRetail}`?.toLowerCase().includes(cleanQuery)
             );
         })
     } else {
@@ -55,7 +54,7 @@ export const filterBottles = (wineBottles: WineBottle[], searchQuery: string): W
 
 export const filterAdditionalQueries = (wineBottles: WineBottle[], additionalQueries: string[]): WineBottle[] => {
     // a more lightweight version that runs on an array of queries
-    console.log(additionalQueries);
+    //console.log(additionalQueries);
 
     if (additionalQueries.length > 0) {
         return wineBottles.filter((bottle) => {
