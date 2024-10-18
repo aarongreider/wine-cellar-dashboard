@@ -33,7 +33,7 @@ function App() {
 
 
   useEffect(() => {  // Get the pathname from the current URL
-    console.log("v 1.7");
+    console.log("v 1.8");
 
     const processURL = () => {
       const pathname = window.location.pathname;
@@ -111,28 +111,30 @@ function App() {
     let numRecursions = 0;
     const peskyJCF = () => {
       if (!jcfDestroyed && numRecursions < 10)
-        try {
-          //console.log("Getting JCF Instance");
+        console.log(numRecursions);
 
-          const selectElement = document.querySelector('select');
-          //console.log("select object: ", selectElement);
+      try {
+        //console.log("Getting JCF Instance");
 
-          // Get the jcf instance associated with the select element
-          // @ts-ignore
-          const jcfInstance = jcf.getInstance(selectElement);
+        const selectElement = document.querySelector('select');
+        //console.log("select object: ", selectElement);
 
-          // Check if instance exists and destroy it
-          if (jcfInstance) {
-            jcfInstance.destroy();
-            console.log("Destroying JCF Instance D:<", jcfInstance);
-            setJcfDestroyed(true)
-          } else {
-            console.log("NO INSTANCE AHHHH");
-            setTimeout(peskyJCF, 500)
-          }
-        } catch (error) {
-          console.log(error);
+        // Get the jcf instance associated with the select element
+        // @ts-ignore
+        const jcfInstance = jcf.getInstance(selectElement);
+
+        // Check if instance exists and destroy it
+        if (jcfInstance) {
+          jcfInstance.destroy();
+          console.log("Destroying JCF Instance D:<", jcfInstance);
+          setJcfDestroyed(true)
+        } else {
+          console.log("NO INSTANCE AHHHH");
+          setTimeout(peskyJCF, 500)
         }
+      } catch (error) {
+        console.log(error);
+      }
     }
 
     window.addEventListener('load', peskyJCF);
@@ -224,7 +226,6 @@ function App() {
   }
 
 
-
   return (
     <>
       <div id="appContainer" ref={appContainerRef}>
@@ -232,7 +233,8 @@ function App() {
 
 
 
-        <div id='toolbarWrapper' style={{ top: `${navHeight+10}px` }}>
+
+        <div id='toolbarWrapper' style={{ top: `${navHeight + 10}px` }}>
           <div className='filterToolbar'>
             <div>
               <select ref={sortRef} onChange={onSort} style={{ textAlign: `${isMobile ? 'center' : "left"}` }}>
@@ -268,14 +270,24 @@ function App() {
 
 
 
-        <p style={{ color: "#e9e5d4", fontWeight: 500, fontStyle: 'italic', width: '100%', textAlign: 'right', paddingRight: '6px', margin: 0 }}>{filteredWineBottles.length} Results</p>
+        <p style={{ color: "#e9e5d4", fontWeight: 500, fontStyle: 'italic', width: '100%', textAlign: 'right', paddingRight: '6px', margin: 0 }}>
+          {filteredWineBottles.length} Results
+          {additionalFiltersCountry.length > 0 && ` >`}
+          {additionalFiltersCountry.map((filter, index) => {
+            return <span key={index}>{` ${filter}${index == additionalFiltersCountry.length-1 ? `` : `,`}`}</span>
+          })}
+          {additionalFiltersWineType.length > 0 && ` >`}
+          {additionalFiltersWineType.map((filter, index) => {
+            return <span key={index}>{` ${filter}${index == additionalFiltersWineType.length-1 ? `` : `,`}`}</span>
+          })}
+        </p>
 
         {
           appLoading ? <LoadingWidget /> :
             <div id="listWrapper">
               {
                 !isMobile ?
-                  <div id="filterWrapper" style={{ top: `${navHeight+10}px` }}>
+                  <div id="filterWrapper" style={{ top: `${navHeight + 10}px` }}>
                     <WithSidePanel viewportRes={viewportRes} scrollable={true}>
                       <FilterPanel filters={countries} activeFilters={additionalFiltersCountry} handleFilter={handleFilterCountry} />
                     </WithSidePanel>

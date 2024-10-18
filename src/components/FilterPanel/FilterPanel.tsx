@@ -28,7 +28,7 @@ export function FilterInput({ filter, activeFilters, handleFilter }: InputProps)
 
     return <>
         <div style={{ gap: '4px', padding: 0 }} key={`${filter}-${nanoid()}`}><input type='checkbox' checked={checked} value={filter} onChange={() => { handleFilter(filter); setChecked(!checked) }} />
-            <p style={{margin: 0}}>{filter}</p>
+            <p style={{ margin: 0 }}>{filter}</p>
         </div>
     </>
 }
@@ -44,6 +44,7 @@ interface PanelProps {
 
 export const WithSidePanel = ({ children, viewportRes, scrollable }: PanelProps) => {
     const [isOverflowing, setIsOverflowing] = useState<boolean>(false)
+
     const filterRef = useRef<HTMLDivElement | null>(null)
 
     useEffect(() => {
@@ -65,15 +66,44 @@ export const WithPopUp = ({ children, title, viewportRes, scrollable }: PanelPro
     const toggleVisible = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         if (!(e.target instanceof HTMLInputElement)) {
             setVisible(!visible)
+            filterRef.current ? filterRef.current.focus() : console.log("filterref not available");
+
         }
     }
+
+    const handleFocus = () => {
+        console.log("I'm focused!", filterRef);
+
+    }
+    const handleBlur = () => {
+        setVisible(!visible)
+    }
+
+    const handleClickOutside = (event: MouseEvent) => {
+        // If clicked outside the menu, close it
+        if (filterRef.current && !filterRef.current.contains(event.target as Node)) {
+            setVisible(false);
+        }
+    };
+
+    useEffect(() => {
+        // Attach the event listener to detect outside clicks
+        document.addEventListener('mousedown', handleClickOutside);
+
+        // Cleanup on unmount
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
 
     return (
         <div className="filterPanel" key={nanoid()} style={{ position: 'relative' }} onClick={toggleVisible}>
             <span style={{ fontSize: '20px', fontVariationSettings: `'FILL' 1` }} className="material-symbols-outlined">bolt</span>
             <p style={{ fontWeight: 600, textWrap: "nowrap", padding: '5px', margin: 0 }}>{title}</p>
             <div ref={filterRef} style={{
-                display: `${visible ? `flex` : `none`}`,
+                display: `flex`,
+                opacity: `${visible ? 1: 0}`,
+                pointerEvents: `${visible ? 'all' : 'none'}`,
                 flexDirection: 'column',
                 gap: '4px',
                 alignItems: 'flex-start',
@@ -88,7 +118,10 @@ export const WithPopUp = ({ children, title, viewportRes, scrollable }: PanelPro
                 padding: '14px',
                 borderRadius: '18px',
                 overflowY: `${isOverflowing ? `scroll` : `hidden`}`
-            }}>
+            }}
+                tabIndex={0}
+                onFocus={handleFocus}
+                onBlur={handleBlur}>
                 {children}
             </div>
         </div>
