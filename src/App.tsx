@@ -27,12 +27,13 @@ function App() {
   const [viewportRes, setViewportRes] = useState({ x: window.innerWidth, y: window.innerHeight })
   const [isMobile, setIsMobile] = useState(viewportRes.x < 650)
   const [jcfDestroyed, setJcfDestroyed] = useState<boolean>(false)
+  const [navHeight, setNavHeight] = useState<number>(50)
   const sortRef = useRef<HTMLSelectElement>(null);
   const appContainerRef = useRef<HTMLDivElement>(null);
 
 
   useEffect(() => {  // Get the pathname from the current URL
-    console.log("v 1.4");
+    console.log("v 1.5");
 
     const processURL = () => {
       const pathname = window.location.pathname;
@@ -43,16 +44,18 @@ function App() {
         // Split the last segment by hyphens
         const words = cleanPath.split('-');
         const location = words[words.length - 1]
-        console.log(words, location);  // Outputs an array of words split by hyphen
+        //console.log(words, location);  // Outputs an array of words split by hyphen
         setStoreLocation(location)
       } else {
-        console.log("No valid segment found.");
+        //console.log("No valid segment found.");
         setStoreLocation("local")
       }
     }
 
     const assignWidths = () => {
       // get scrollbar width
+      const scrollbarWidth = document.documentElement.clientWidth - viewportRes.x
+      console.log('scrollbarWidth', scrollbarWidth);
 
 
       // brute force the correct widths and overflow properties
@@ -62,10 +65,10 @@ function App() {
 
       const wrapperStyle = {
         overflow: 'visible',
-        width: 'calc(100svw - 20px)'
+        width: `calc(100svw - ${scrollbarWidth}px)`
       }
       const rootStyle = {
-        width: 'calc(100svw - 20px)'
+        width: `calc(100svw - ${scrollbarWidth}px)`
       }
 
       const btnStyle = {
@@ -82,10 +85,7 @@ function App() {
 
 
     processURL()
-    window.addEventListener('load', assignWidths)
-
-
-
+    setTimeout(assignWidths, 500);
   }, [])
 
   useEffect(() => {  // fetch the initial data and set the state
@@ -106,7 +106,7 @@ function App() {
 
   }, [storeLocation])
 
-  useEffect(() => { // Setting up the window.onload event inside useEffect
+  useEffect(() => { // JCF Setting up the window.onload event inside useEffect
     /* UNBIND JCF FROM SELECT OBJECTS */
     let numRecursions = 0;
     const peskyJCF = () => {
@@ -127,7 +127,7 @@ function App() {
             console.log("Destroying JCF Instance D:<", jcfInstance);
             setJcfDestroyed(true)
           } else {
-            //console.log("NO INSTANCE AHHHH");
+            console.log("NO INSTANCE AHHHH");
             setTimeout(peskyJCF, 500)
           }
         } catch (error) {
@@ -175,6 +175,7 @@ function App() {
     const handleResize = () => {
       setViewportRes({ x: window.innerWidth, y: window.innerHeight })
       setIsMobile(window.innerWidth < 650)
+      setNavHeight(document.getElementById('nav')?.offsetHeight ?? 50)
     };
 
     handleResize(); // Check on mount
@@ -231,7 +232,7 @@ function App() {
 
 
 
-        <div id='toolbarWrapper'>
+        <div id='toolbarWrapper' style={{ top: `${navHeight+10}px` }}>
           <div className='filterToolbar'>
             <div>
               <select ref={sortRef} onChange={onSort} style={{ textAlign: `${isMobile ? 'center' : "left"}` }}>
@@ -274,7 +275,7 @@ function App() {
             <div id="listWrapper">
               {
                 !isMobile ?
-                  <div id="filterWrapper">
+                  <div id="filterWrapper" style={{ top: `${navHeight+10}px` }}>
                     <WithSidePanel viewportRes={viewportRes} scrollable={true}>
                       <FilterPanel filters={countries} activeFilters={additionalFiltersCountry} handleFilter={handleFilterCountry} />
                     </WithSidePanel>

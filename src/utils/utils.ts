@@ -45,7 +45,6 @@ export const filterBottles = (wineBottles: WineBottle[], searchQuery: string): W
                 `${bottle.Country}`?.toLowerCase().includes(cleanQuery) ||
                 `${bottle.Region}`?.toLowerCase().includes(cleanQuery) ||
                 `${bottle.SubRegion}`?.toLowerCase().includes(cleanQuery) ||
-                `${bottle.Total}`?.toLowerCase().includes(cleanQuery) ||
                 `${bottle.OhioRetail}`?.toLowerCase().includes(cleanQuery)
             );
         })
