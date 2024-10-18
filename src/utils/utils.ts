@@ -36,17 +36,17 @@ export const fetchBottleData = async (location: string): Promise<WineBottle[]> =
 
 export const filterBottles = (wineBottles: WineBottle[], searchQuery: string): WineBottle[] => {
     // filter bottle list based on query match, runs more frequently
-    const cleanQuery = `${searchQuery}`
+    const cleanQuery = `${searchQuery}`.toLowerCase()
     if (cleanQuery) {
         return wineBottles.filter((bottle) => {
             return (
-                bottle.Description?.toLowerCase().includes(cleanQuery.toLowerCase()) ||
-                bottle.Vintage?.toLowerCase().includes(cleanQuery.toLowerCase()) ||
-                bottle.Country?.toLowerCase().includes(cleanQuery.toLowerCase()) ||
-                bottle.Region?.toLowerCase().includes(cleanQuery.toLowerCase()) ||
-                bottle.SubRegion?.toLowerCase().includes(cleanQuery.toLowerCase()) ||
-                bottle.Total?.toLowerCase().includes(cleanQuery.toLowerCase()) ||
-                bottle.OhioRetail?.toLowerCase().includes(cleanQuery.toLowerCase())
+                `${bottle.Description}`?.toLowerCase().includes(cleanQuery) ||
+                `${bottle.Vintage}`?.toLowerCase().includes(cleanQuery) ||
+                `${bottle.Country}`?.toLowerCase().includes(cleanQuery) ||
+                `${bottle.Region}`?.toLowerCase().includes(cleanQuery) ||
+                `${bottle.SubRegion}`?.toLowerCase().includes(cleanQuery) ||
+                `${bottle.Total}`?.toLowerCase().includes(cleanQuery) ||
+                `${bottle.OhioRetail}`?.toLowerCase().includes(cleanQuery)
             );
         })
     } else {
