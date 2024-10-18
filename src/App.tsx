@@ -33,7 +33,7 @@ function App() {
 
 
   useEffect(() => {  // Get the pathname from the current URL
-    console.log("v 1.6");
+    console.log("v 1.7");
 
     const processURL = () => {
       const pathname = window.location.pathname;
@@ -65,10 +65,10 @@ function App() {
 
       const wrapperStyle = {
         overflow: 'visible',
-        width: `calc(-${scrollbarWidth}px + 100svw)`
+        width: `calc(100svw + ${scrollbarWidth}px)`
       }
       const rootStyle = {
-        width: `calc(-${scrollbarWidth}px + 100svw )`
+        width: `calc(100svw + ${scrollbarWidth}px)`
       }
 
       const btnStyle = {
