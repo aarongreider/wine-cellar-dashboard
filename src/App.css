@@ -63,8 +63,8 @@ select {
   gap: 12px;
   width: 100%;
   position: sticky;
-  top: 60px;
-  filter: drop-shadow(rgba(0, 0, 0, 0.2) 0px 2px 4px);
+  top: 61px;
+  filter: drop-shadow(rgba(0, 0, 0, 0.25) 0px 2px 4px);
 }
 
 .filterToolbar {

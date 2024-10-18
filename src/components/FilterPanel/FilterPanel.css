@@ -6,7 +6,7 @@
   height: -moz-min-content;
   height: min-content;
   max-height: calc(100vh - 40px);
-  top: 60px;
+  top: 61px;
   /* For WebKit browsers (Chrome, Safari) */
 }
 .filterWrapper .filterPanel, #filterWrapper .filterPanel {
