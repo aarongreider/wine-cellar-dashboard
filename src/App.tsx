@@ -32,7 +32,7 @@ function App() {
 
 
   useEffect(() => {  // Get the pathname from the current URL
-    console.log("v 1.3");
+    console.log("v 1.4");
 
     const processURL = () => {
       const pathname = window.location.pathname;
