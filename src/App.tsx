@@ -4,9 +4,7 @@ import { fetchBottleData, filterAdditionalQueries, filterBottles, filterWineType
 import { WineCard } from './components/WineCard/WineCard'
 import { wineTypes } from './utils/utils'
 import { FilterPanel, WithPopUp, WithSidePanel } from './components/FilterPanel/FilterPanel'
-import { WithStickyScroll } from './components/WithStickyScroll'
 import { LoadingWidget } from './components/LoadingWidget'
-import { WithPinnedScroll } from './components/WithPinnedScroll'
 
 const notFoundIcons = [
   `( ╥﹏╥) ノシ`,
@@ -34,6 +32,8 @@ function App() {
 
 
   useEffect(() => {  // Get the pathname from the current URL
+    console.log("v 1.2");
+    
     const pathname = window.location.pathname;
     //const pathname = "/wine-cellar-eastgate/";
     const cleanPath = pathname.replace(/\//g, '');
@@ -67,8 +67,6 @@ function App() {
     fetchData();
 
   }, [storeLocation])
-
-
 
   useEffect(() => { // Setting up the window.onload event inside useEffect
     /* UNBIND JCF FROM SELECT OBJECTS */
