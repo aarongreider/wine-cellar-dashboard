@@ -33,21 +33,59 @@ function App() {
 
   useEffect(() => {  // Get the pathname from the current URL
     console.log("v 1.2");
-    
-    const pathname = window.location.pathname;
-    //const pathname = "/wine-cellar-eastgate/";
-    const cleanPath = pathname.replace(/\//g, '');
 
-    if (cleanPath) {
-      // Split the last segment by hyphens
-      const words = cleanPath.split('-');
-      const location = words[words.length - 1]
-      console.log(words, location);  // Outputs an array of words split by hyphen
-      setStoreLocation(location)
-    } else {
-      console.log("No valid segment found.");
-      setStoreLocation("local")
+    const processURL = () => {
+      const pathname = window.location.pathname;
+      //const pathname = "/wine-cellar-eastgate/";
+      const cleanPath = pathname.replace(/\//g, '');
+
+      if (cleanPath) {
+        // Split the last segment by hyphens
+        const words = cleanPath.split('-');
+        const location = words[words.length - 1]
+        console.log(words, location);  // Outputs an array of words split by hyphen
+        setStoreLocation(location)
+      } else {
+        console.log("No valid segment found.");
+        setStoreLocation("local")
+      }
     }
+
+    const assignWidths = () => {
+      // get scrollbar width
+
+
+      // brute force the correct widths and overflow properties
+      const wrapper: HTMLDivElement | null = document.getElementById('wrapper') as HTMLDivElement
+      const root: HTMLDivElement | null = document.getElementById("root") as HTMLDivElement
+      const btn: HTMLLinkElement | null = document.querySelector("#header > div > div.header-holder > div.sub-nav > a")
+
+      const wrapperStyle = {
+        overflow: 'visible',
+        width: 'calc(100svw - 20px)'
+      }
+      const rootStyle = {
+        width: 'calc(100svw - 20px)'
+      }
+
+      const btnStyle = {
+        width: 'auto',
+        whiteSpace: 'normal', // Equivalent to text wrapping
+        overflow: 'visible'
+      };
+
+      // Apply each style from the object to the element
+      wrapper && Object.assign(wrapper.style, wrapperStyle);
+      root && Object.assign(root.style, rootStyle);
+      btn && Object.assign(btn.style, btnStyle);
+    }
+
+
+    processURL()
+    window.addEventListener('load', assignWidths)
+
+
+
   }, [])
 
   useEffect(() => {  // fetch the initial data and set the state
