@@ -10,8 +10,8 @@ export default defineConfig(({ mode }) => {
       rollupOptions: {
         output: {
           dir: './dist/',
-          entryFileNames: 'script.js',
-          assetFileNames: 'style.css',
+          entryFileNames: 'scripts.js',
+          assetFileNames: 'styles.css',
         }
       }
     }
