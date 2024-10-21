@@ -33,7 +33,7 @@ function App() {
 
 
   useEffect(() => {  // Get the pathname from the current URL
-    console.log("v 2.5");
+    console.log("v 2.6");
 
     const processURL = () => {
       const pathname = window.location.pathname;
@@ -161,7 +161,7 @@ function App() {
     //console.log(wineBottles);
 
     // map to get an array of countries
-    const countries = wineBottles.map(bottle => bottle.Country);
+    const countries = wineBottles.map(bottle => bottle.Country.replace(/[^a-zA-Z0-9\s]/g, ''));
     const uniqueCountries = Array.from(new Set(countries));
     setCountries(uniqueCountries)
 

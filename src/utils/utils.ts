@@ -60,9 +60,9 @@ export const filterAdditionalQueries = (wineBottles: WineBottle[], additionalQue
         return wineBottles.filter((bottle) => {
             return additionalQueries.some((query) => {
                 return (
-                    bottle.Country?.toLowerCase().includes(query.toLowerCase()) ||
-                    bottle.Region?.toLowerCase().includes(query.toLowerCase()) ||
-                    bottle.Description?.toLowerCase().includes(query.toLowerCase())
+                    bottle.Country?.replace(/[^a-zA-Z0-9\s]/g, '').toLowerCase().includes(query.toLowerCase()) ||
+                    bottle.Region?.replace(/[^a-zA-Z0-9\s]/g, '').toLowerCase().includes(query.toLowerCase()) ||
+                    bottle.Description?.replace(/[^a-zA-Z0-9\s]/g, '').toLowerCase().includes(query.toLowerCase())
                 );
             });
         });

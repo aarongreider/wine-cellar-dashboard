@@ -4,6 +4,7 @@ import './WineCard.css'
 interface cardProps {
     bottle: WineBottle
 }
+
 export function WineCard({ bottle }: cardProps) {
     return <>
         <div className="wineBottle">
