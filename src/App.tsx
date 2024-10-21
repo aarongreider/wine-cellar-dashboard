@@ -33,7 +33,7 @@ function App() {
 
 
   useEffect(() => {  // Get the pathname from the current URL
-    console.log("v 2.8");
+    console.log("v 2.9");
 
     const processURL = () => {
       const pathname = window.location.pathname;
@@ -87,7 +87,6 @@ function App() {
       btn && Object.assign(btn.style, btnStyle);
       header && Object.assign(header.style, navStyle);
     }
-
 
     processURL()
     setTimeout(assignStyles, 500);
@@ -240,7 +239,7 @@ function App() {
       <div id="appContainer" ref={appContainerRef}>
         <div style={{
           position: "relative",
-          transform: `${isMobile ? 'none' : 'translateY(18px)'}`
+          transform: `${isMobile ? 'none' : 'translateY(8px)'}`
         }}>
           <div style={{
             display: 'flex',
