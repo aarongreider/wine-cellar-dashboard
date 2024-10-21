@@ -33,7 +33,7 @@ function App() {
 
 
   useEffect(() => {  // Get the pathname from the current URL
-    console.log("v 2.7");
+    console.log("v 2.8");
 
     const processURL = () => {
       const pathname = window.location.pathname;
@@ -255,10 +255,10 @@ function App() {
             }}>
               {storeLocation && storeLocation.charAt(0).toUpperCase() + storeLocation.slice(1)} Wine Cellar Inventory
             </h1>
-            <select id="chooseStore" style={{ width: 'min-content', color: '#e9e5d4', }}
+            <select id="chooseStore" style={{ width: 'min-content', color: '#e9e5d4', transform: 'translate(-7px, -2px)' }}
               onChange={(e) => { window.location.href = `https://junglejims.com/wine-cellar-${e.target.value}/` }}>
-              <option value="fairfield">Fairfield</option>
-              <option value="eastgate">Eastgate</option>
+              <option value="fairfield" selected={storeLocation === "fairfield"}>Fairfield</option>
+              <option value="eastgate" selected={storeLocation === "eastgate"}>Eastgate</option>
             </select>
           </div>
         </div>
