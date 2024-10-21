@@ -52,7 +52,7 @@ function App() {
       }
     }
 
-    const assignWidths = () => {
+    const assignStyles = () => {
       // get scrollbar width
       const scrollbarWidth = document.documentElement.clientWidth - viewportRes.x
 
@@ -60,6 +60,7 @@ function App() {
       const wrapper: HTMLDivElement | null = document.getElementById('wrapper') as HTMLDivElement
       const root: HTMLDivElement | null = document.getElementById("root") as HTMLDivElement
       const btn: HTMLLinkElement | null = document.querySelector("#header > div > div.header-holder > div.sub-nav > a")
+      const nav: HTMLLinkElement | null = document.querySelector("#header > div > div.sticky-wrap-nav-holder > div")
 
       const wrapperStyle = {
         overflow: 'visible',
@@ -75,15 +76,20 @@ function App() {
         overflow: 'visible'
       };
 
+      const navStyle = {
+        zIndex: '101'
+      };
+
       // Apply each style from the object to the element
       wrapper && Object.assign(wrapper.style, wrapperStyle);
       root && Object.assign(root.style, rootStyle);
       btn && Object.assign(btn.style, btnStyle);
+      nav && Object.assign(nav.style, navStyle);
     }
 
 
     processURL()
-    setTimeout(assignWidths, 500);
+    setTimeout(assignStyles, 500);
   }, [])
 
   useEffect(() => {  // fetch the initial data and set the state
