@@ -33,7 +33,7 @@ function App() {
 
 
   useEffect(() => {  // Get the pathname from the current URL
-    console.log("v 2.6");
+    console.log("v 2.7");
 
     const processURL = () => {
       const pathname = window.location.pathname;
@@ -121,22 +121,25 @@ function App() {
         try {
           //console.log("Getting JCF Instance");
 
-          const selectElement = document.querySelector('select');
+          const selectElements = document.querySelectorAll('select');
           //console.log("select object: ", selectElement);
 
           // Get the jcf instance associated with the select element
-          // @ts-ignore
-          const jcfInstance = jcf.getInstance(selectElement);
 
-          // Check if instance exists and destroy it
-          if (jcfInstance) {
-            jcfInstance.destroy();
-            console.log("Destroying JCF Instance D:<", jcfInstance);
-            setJcfDestroyed(true)
-          } else {
-            //console.log("NO INSTANCE AHHHH");
-            setTimeout(peskyJCF, 500)
-          }
+          selectElements.forEach((selectElement) => {
+            // @ts-ignore
+            const jcfInstance = jcf.getInstance(selectElement);
+
+            // Check if instance exists and destroy it
+            if (jcfInstance) {
+              jcfInstance.destroy();
+              console.log("Destroying JCF Instance D:<", jcfInstance);
+              setJcfDestroyed(true)
+            } else {
+              //console.log("NO INSTANCE AHHHH");
+              setTimeout(peskyJCF, 500)
+            }
+          })
         } catch (error) {
           console.log(error);
         }
@@ -235,15 +238,35 @@ function App() {
   return (
     <>
       <div id="appContainer" ref={appContainerRef}>
-        <h1 style={{ width: `${isMobile ? '100%' : '60%'}`, textAlign: 'left', color: '#e9e5d4', height: `${isMobile ? 'auto' : 0}`, transform: `${isMobile ? 'none' : 'translateY(18px)'}` }}>{storeLocation && storeLocation.charAt(0).toUpperCase() + storeLocation.slice(1)} Wine Cellar Inventory</h1>
-
-
-
+        <div style={{
+          position: "relative",
+          transform: `${isMobile ? 'none' : 'translateY(18px)'}`
+        }}>
+          <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            position: `${isMobile ? 'relative' : 'absolute'}`,
+            width: `${isMobile ? '90svw' : '60svw'}`,
+          }}>
+            <h1 style={{
+              textAlign: 'left',
+              color: '#e9e5d4',
+              margin: 0,
+            }}>
+              {storeLocation && storeLocation.charAt(0).toUpperCase() + storeLocation.slice(1)} Wine Cellar Inventory
+            </h1>
+            <select id="chooseStore" style={{ width: 'min-content', color: '#e9e5d4', }}
+              onChange={(e) => { setStoreLocation(e.target.value) }}>
+              <option value="fairfield">Fairfield</option>
+              <option value="eastgate">Eastgate</option>
+            </select>
+          </div>
+        </div>
 
         <div id='toolbarWrapper' style={{ top: `${navHeight + 10}px` }}>
           <div className='filterToolbar'>
             <div>
-              <select ref={sortRef} onChange={onSort} style={{ textAlign: `${isMobile ? 'center' : "left"}` }}>
+              <select id="sortWidget" ref={sortRef} onChange={onSort} style={{ textAlign: `${isMobile ? 'center' : "left"}` }}>
                 <option value={''}>Sort</option>
                 <option value={'price descending'}>Price ↓</option>
                 <option value={'price ascending'}>Price ↑</option>
