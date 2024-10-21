@@ -163,7 +163,9 @@ function App() {
     //console.log(wineBottles);
 
     // map to get an array of countries
-    const countries = wineBottles.map(bottle => bottle.Country?.replace(/[^a-zA-Z0-9\s]/g, ''));
+    const countries = wineBottles
+      .map(bottle => bottle.Country?.replace(/[^a-zA-Z0-9\s]/g, '').trim())
+      .filter(country => country); // Filter out empty or whitespace-only item
     const uniqueCountries = Array.from(new Set(countries));
     setCountries(uniqueCountries)
 
@@ -255,9 +257,11 @@ function App() {
               {storeLocation && storeLocation.charAt(0).toUpperCase() + storeLocation.slice(1)} Wine Cellar Inventory
             </h1>
             <select id="chooseStore" style={{ width: 'min-content', color: '#e9e5d4', transform: 'translate(-7px, -2px)' }}
+              defaultValue={storeLocation}
               onChange={(e) => { window.location.href = `https://junglejims.com/wine-cellar-${e.target.value}/` }}>
-              <option value="fairfield" selected={storeLocation === "fairfield"}>Fairfield</option>
-              <option value="eastgate" selected={storeLocation === "eastgate"}>Eastgate</option>
+              <option value="">Change Store</option>
+              <option value="fairfield">Fairfield</option>
+              <option value="eastgate">Eastgate</option>
             </select>
           </div>
         </div>

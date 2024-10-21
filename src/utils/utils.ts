@@ -11,7 +11,7 @@ export type WineBottle = {
 const endpoints = {
     fairfield: 'https://mobile-api.junglejims.com/fairfield-wine-cellar.json',
     eastgate: 'https://mobile-api.junglejims.com/eastgate-wine-cellar.json',
-    local: '../../public/eastgate-wine.json',
+    local: '../../public/fairfield-wine-cellar.json',
     //github: 'https://aaron.greider.org/wine-cellar-dashboard/dist/fairfield-wine.json'
 }
 
@@ -148,7 +148,7 @@ export const sortBottles = (filteredWineBottles: WineBottle[], sortQuery: string
             case "alphabetically":
                 {
                     filteredWineBottles.sort((a, b) => {
-                        return a.Description.localeCompare(b.Description);
+                        return a.Description?.localeCompare(b.Description);
                     })
                     break;
                 }
@@ -176,7 +176,7 @@ export const filterWineTypesByDescriptionAndCountry = (wineBottles: WineBottle[]
             const wineTypeLower = wineType?.toLowerCase();
 
             // Add to set if found in either description or country
-            if (description.includes(wineTypeLower) || region?.includes(wineTypeLower)) {
+            if (description?.includes(wineTypeLower) || region?.includes(wineTypeLower)) {
                 matchingWineTypes.add(wineType);
             }
         });
