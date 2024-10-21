@@ -33,7 +33,7 @@ function App() {
 
 
   useEffect(() => {  // Get the pathname from the current URL
-    console.log("v 3.3");
+    console.log("v 3.4");
 
     const processURL = () => {
       const pathname = window.location.pathname;
@@ -267,7 +267,7 @@ function App() {
                 <option value="fairfield">Fairfield</option>
                 <option value="eastgate">Eastgate</option>
               </select>
-              <span style={{transform: 'translateY(3px)', height: "min-content"}} className="material-symbols-outlined selectChevron">keyboard_arrow_down</span>
+              <span style={{ height: "min-content" }} className="material-symbols-outlined selectChevron">keyboard_arrow_down</span>
             </div>
           </div>
         </div>
@@ -276,7 +276,7 @@ function App() {
           <div className='filterToolbar'>
             <div style={{ position: 'relative' }}>
               <select id="sortWidget" className="noAppearance" ref={sortRef} onChange={onSort}
-                style={{ textAlign: "left", zIndex: 1, width: '56px', }}>
+                style={{ textAlign: "left", zIndex: 1, width: '63px', }}>
                 <option value={''}>Sort</option>
                 <option value={'price descending'}>Price ↓</option>
                 <option value={'price ascending'}>Price ↑</option>
