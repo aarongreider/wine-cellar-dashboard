@@ -33,7 +33,7 @@ function App() {
 
 
   useEffect(() => {  // Get the pathname from the current URL
-    console.log("v 3.2");
+    console.log("v 3.3");
 
     const processURL = () => {
       const pathname = window.location.pathname;
@@ -260,7 +260,6 @@ function App() {
               <select id="chooseStore" className="noAppearance" style={{
                 width: 'min-content',
                 color: '#e9e5d4',
-                transform: 'translateY(3px)'
               }}
                 defaultValue={storeLocation}
                 onChange={(e) => { window.location.href = `https://junglejims.com/wine-cellar-${e.target.value}/` }}>
@@ -268,7 +267,7 @@ function App() {
                 <option value="fairfield">Fairfield</option>
                 <option value="eastgate">Eastgate</option>
               </select>
-              <span className="material-symbols-outlined selectChevron">keyboard_arrow_down</span>
+              <span style={{transform: 'translateY(3px)', height: "min-content"}} className="material-symbols-outlined selectChevron">keyboard_arrow_down</span>
             </div>
           </div>
         </div>
@@ -287,7 +286,7 @@ function App() {
               </select>
               <span className="material-symbols-outlined selectChevron" style={{
                 position: 'absolute',
-                right: '2px',
+                right: '3px',
                 zIndex: 0,
               }}>keyboard_arrow_down</span>
             </div>
