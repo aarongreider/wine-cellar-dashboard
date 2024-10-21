@@ -66,15 +66,10 @@ export const WithPopUp = ({ children, title, viewportRes, scrollable }: PanelPro
     const toggleVisible = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         if (!(e.target instanceof HTMLInputElement)) {
             setVisible(!visible)
-            filterRef.current ? filterRef.current.focus() : console.log("filterref not available");
-
+            filterRef.current ? filterRef.current.focus() : undefined/* console.log("filterref not available") */;
         }
     }
 
-    const handleFocus = () => {
-        console.log("I'm focused!", filterRef);
-
-    }
     const handleBlur = () => {
         setVisible(!visible)
     }
@@ -120,7 +115,6 @@ export const WithPopUp = ({ children, title, viewportRes, scrollable }: PanelPro
                 overflowY: `${isOverflowing ? `scroll` : `hidden`}`
             }}
                 tabIndex={0}
-                onFocus={handleFocus}
                 onBlur={handleBlur}>
                 {children}
             </div>

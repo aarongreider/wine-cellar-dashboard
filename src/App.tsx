@@ -256,7 +256,7 @@ function App() {
               {storeLocation && storeLocation.charAt(0).toUpperCase() + storeLocation.slice(1)} Wine Cellar Inventory
             </h1>
             <select id="chooseStore" style={{ width: 'min-content', color: '#e9e5d4', }}
-              onChange={(e) => { setStoreLocation(e.target.value) }}>
+              onChange={(e) => { window.location.href = `https://junglejims.com/wine-cellar-${e.target.value}/` }}>
               <option value="fairfield">Fairfield</option>
               <option value="eastgate">Eastgate</option>
             </select>
