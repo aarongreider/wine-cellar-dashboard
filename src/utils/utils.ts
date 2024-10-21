@@ -173,7 +173,7 @@ export const filterWineTypesByDescriptionAndCountry = (wineBottles: WineBottle[]
 
         // Check each wine type if it's in the description or country
         wineTypes.forEach((wineType) => {
-            const wineTypeLower = wineType.toLowerCase();
+            const wineTypeLower = wineType?.toLowerCase();
 
             // Add to set if found in either description or country
             if (description.includes(wineTypeLower) || region?.includes(wineTypeLower)) {
