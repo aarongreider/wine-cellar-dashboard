@@ -33,7 +33,7 @@ function App() {
 
 
   useEffect(() => {  // Get the pathname from the current URL
-    console.log("v 3.0");
+    console.log("v 3.1");
 
     const processURL = () => {
       const pathname = window.location.pathname;
@@ -256,20 +256,28 @@ function App() {
             }}>
               {storeLocation && storeLocation.charAt(0).toUpperCase() + storeLocation.slice(1)} Wine Cellar Inventory
             </h1>
-            <select id="chooseStore" style={{ width: 'min-content', color: '#e9e5d4', transform: 'translate(-7px, -2px)' }}
-              defaultValue={storeLocation}
-              onChange={(e) => { window.location.href = `https://junglejims.com/wine-cellar-${e.target.value}/` }}>
-              <option value="">Change Store</option>
-              <option value="fairfield">Fairfield</option>
-              <option value="eastgate">Eastgate</option>
-            </select>
+            <div style={{ display: 'flex', flexDirection: 'row', gap: '6px', color: '#e9e5d4', }}>
+              <select id="chooseStore" className="noAppearance" style={{
+                width: 'min-content',
+                color: '#e9e5d4',
+                //transform: 'translate(-7px, -2px)'
+              }}
+                defaultValue={storeLocation}
+                onChange={(e) => { window.location.href = `https://junglejims.com/wine-cellar-${e.target.value}/` }}>
+                <option value="">Change Store</option>
+                <option value="fairfield">Fairfield</option>
+                <option value="eastgate">Eastgate</option>
+              </select>
+              <span className="material-symbols-outlined selectChevron">keyboard_arrow_down</span>
+            </div>
           </div>
         </div>
 
         <div id='toolbarWrapper' style={{ top: `${navHeight + 10}px` }}>
           <div className='filterToolbar'>
-            <div>
-              <select id="sortWidget" ref={sortRef} onChange={onSort} style={{ textAlign: `${isMobile ? 'center' : "left"}` }}>
+            <div style={{ position: 'relative' }}>
+              <select id="sortWidget" className="noAppearance" ref={sortRef} onChange={onSort}
+                style={{ textAlign: "left", zIndex: 1 }}>
                 <option value={''}>Sort</option>
                 <option value={'price descending'}>Price ↓</option>
                 <option value={'price ascending'}>Price ↑</option>
@@ -277,6 +285,11 @@ function App() {
                 <option value={'year ascending'}>Year ↑</option>
                 <option value={'alphabetically'}>A-Z</option>
               </select>
+              <span className="material-symbols-outlined selectChevron" style={{
+                position: 'absolute',
+                right: '2px',
+                zIndex: 0
+              }}>keyboard_arrow_down</span>
             </div>
             <div className='inputWrapper'>
               <input type="text"

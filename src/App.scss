@@ -52,7 +52,7 @@ select {
     background: none;
     border: none !important;
     text-decoration: none;
-
+    cursor: pointer;
     font-weight: 600;
 }
 
@@ -63,7 +63,8 @@ select {
     width: 100%;
 }
 
-.toolbarWrapper, #toolbarWrapper {
+.toolbarWrapper,
+#toolbarWrapper {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -86,7 +87,7 @@ select {
     div {
         width: min-content;
         height: auto;
-        padding: 5px;
+        //padding: 5px 10px;
 
         display: flex;
         flex-direction: row;
@@ -97,8 +98,30 @@ select {
         background: #e9e5d4;
         pointer-events: all;
     }
+
+    select, input {
+        padding: 5px 10px;
+    }
+
+    .filterPanel {
+        padding: 5px 10px;
+    }
 }
 
 .inputWrapper {
     padding: 5px 10px 5px 5px;
+}
+
+select.noAppearance {
+    -o-appearance: none;
+    -ms-appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.selectChevron {
+    font-weight: 600;
+    font-size: 20px;
+    transform: translateY(1px);
 }
