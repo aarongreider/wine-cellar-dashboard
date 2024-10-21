@@ -33,7 +33,7 @@ function App() {
 
 
   useEffect(() => {  // Get the pathname from the current URL
-    console.log("v 2.4");
+    console.log("v 2.5");
 
     const processURL = () => {
       const pathname = window.location.pathname;
@@ -60,7 +60,7 @@ function App() {
       const wrapper: HTMLDivElement | null = document.getElementById('wrapper') as HTMLDivElement
       const root: HTMLDivElement | null = document.getElementById("root") as HTMLDivElement
       const btn: HTMLLinkElement | null = document.querySelector("#header > div > div.header-holder > div.sub-nav > a")
-      const nav: HTMLLinkElement | null = document.querySelector("#header > div > div.sticky-wrap-nav-holder > div")
+      const header: HTMLLinkElement | null = document.querySelector("#header")
 
       const wrapperStyle = {
         overflow: 'visible',
@@ -77,14 +77,15 @@ function App() {
       };
 
       const navStyle = {
-        zIndex: '101'
+        position: 'relative',
+        zIndex: 101,
       };
 
       // Apply each style from the object to the element
       wrapper && Object.assign(wrapper.style, wrapperStyle);
       root && Object.assign(root.style, rootStyle);
       btn && Object.assign(btn.style, btnStyle);
-      nav && Object.assign(nav.style, navStyle);
+      header && Object.assign(header.style, navStyle);
     }
 
 
