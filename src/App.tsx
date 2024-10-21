@@ -163,7 +163,7 @@ function App() {
     //console.log(wineBottles);
 
     // map to get an array of countries
-    const countries = wineBottles.map(bottle => bottle.Country.replace(/[^a-zA-Z0-9\s]/g, ''));
+    const countries = wineBottles.map(bottle => bottle.Country?.replace(/[^a-zA-Z0-9\s]/g, ''));
     const uniqueCountries = Array.from(new Set(countries));
     setCountries(uniqueCountries)
 
