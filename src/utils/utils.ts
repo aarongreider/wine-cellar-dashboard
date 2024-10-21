@@ -168,7 +168,7 @@ export const filterWineTypesByDescriptionAndCountry = (wineBottles: WineBottle[]
 
     // Loop through each wine bottle
     wineBottles.forEach((bottle) => {
-        const description = bottle.Description.toLowerCase();
+        const description = bottle.Description?.toLowerCase();
         const region = bottle.Region?.toLowerCase();
 
         // Check each wine type if it's in the description or country
