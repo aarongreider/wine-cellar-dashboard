@@ -33,7 +33,7 @@ function App() {
 
 
   useEffect(() => {  // Get the pathname from the current URL
-    console.log("v 3.1");
+    console.log("v 3.2");
 
     const processURL = () => {
       const pathname = window.location.pathname;
@@ -256,11 +256,11 @@ function App() {
             }}>
               {storeLocation && storeLocation.charAt(0).toUpperCase() + storeLocation.slice(1)} Wine Cellar Inventory
             </h1>
-            <div style={{ display: 'flex', flexDirection: 'row', gap: '6px', color: '#e9e5d4', }}>
+            <div style={{ display: 'flex', flexDirection: 'row', gap: '6px', alignItems: 'center', color: '#e9e5d4', }}>
               <select id="chooseStore" className="noAppearance" style={{
                 width: 'min-content',
                 color: '#e9e5d4',
-                //transform: 'translate(-7px, -2px)'
+                transform: 'translateY(3px)'
               }}
                 defaultValue={storeLocation}
                 onChange={(e) => { window.location.href = `https://junglejims.com/wine-cellar-${e.target.value}/` }}>
@@ -277,7 +277,7 @@ function App() {
           <div className='filterToolbar'>
             <div style={{ position: 'relative' }}>
               <select id="sortWidget" className="noAppearance" ref={sortRef} onChange={onSort}
-                style={{ textAlign: "left", zIndex: 1 }}>
+                style={{ textAlign: "left", zIndex: 1, width: '56px', }}>
                 <option value={''}>Sort</option>
                 <option value={'price descending'}>Price ↓</option>
                 <option value={'price ascending'}>Price ↑</option>
@@ -288,7 +288,7 @@ function App() {
               <span className="material-symbols-outlined selectChevron" style={{
                 position: 'absolute',
                 right: '2px',
-                zIndex: 0
+                zIndex: 0,
               }}>keyboard_arrow_down</span>
             </div>
             <div className='inputWrapper'>

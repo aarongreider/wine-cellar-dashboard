@@ -82,6 +82,7 @@ select {
   width: -moz-min-content;
   width: min-content;
   height: auto;
+  padding: 5px 10px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -89,12 +90,6 @@ select {
   border-radius: 30px;
   background: #e9e5d4;
   pointer-events: all;
-}
-.filterToolbar select, .filterToolbar input {
-  padding: 5px 10px;
-}
-.filterToolbar .filterPanel {
-  padding: 5px 10px;
 }
 
 .inputWrapper {
