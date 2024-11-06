@@ -9,17 +9,17 @@ export function WineCard({ bottle }: cardProps) {
     return <>
         <div className="wineBottle">
             <div>
-                <h2>{bottle.Vintage} {bottle.Description}</h2>
-                <p>{bottle.Country}{bottle.Region || bottle.SubRegion ? `: ` : undefined}
-                    {bottle.Region ?
-                        `${bottle.Region}` : undefined}
-                    {bottle.Region && bottle.SubRegion ? `, ` : undefined}
-                    {bottle.SubRegion ?
-                        `${bottle.SubRegion} ` : undefined}</p>
+                <h2>{bottle.vintage} {bottle.description}</h2>
+                <p>{bottle.country}{bottle.region || bottle.subRegion ? `: ` : undefined}
+                    {bottle.region ?
+                        `${bottle.region}` : undefined}
+                    {bottle.region && bottle.subRegion ? `, ` : undefined}
+                    {bottle.subRegion ?
+                        `${bottle.subRegion} ` : undefined}</p>
             </div>
             <div>
-                <h3>{bottle.OhioRetail ? `$${bottle.OhioRetail}` : 'N/A'}</h3>
-                <p>{bottle.Total} in stock</p>
+                <h3>{bottle.ohioRetail ? `$${bottle.ohioRetail}` : 'N/A'}</h3>
+                <p>{bottle.total} in stock</p>
             </div>
         </div>
     </>

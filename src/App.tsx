@@ -33,7 +33,7 @@ function App() {
 
 
   useEffect(() => {  // Get the pathname from the current URL
-    console.log("v 3.4");
+    console.log("v 3.5");
 
     const processURL = () => {
       const pathname = window.location.pathname;
@@ -164,7 +164,7 @@ function App() {
 
     // map to get an array of countries
     const countries = wineBottles
-      .map(bottle => bottle.Country?.replace(/[^a-zA-Z0-9\s]/g, '').trim())
+      .map(bottle => bottle.country?.replace(/[^a-zA-Z0-9\s]/g, '').trim())
       .filter(country => country); // Filter out empty or whitespace-only item
     const uniqueCountries = Array.from(new Set(countries));
     setCountries(uniqueCountries)
@@ -342,7 +342,7 @@ function App() {
               }
               <div id="wineList">
                 {filteredWineBottles.length > 0 ? filteredWineBottles.map((bottle, index) => {
-                  return Number(bottle.Total) > 0 ? <WineCard key={index} bottle={bottle}></WineCard> : undefined
+                  return Number(bottle.total) > 0 ? <WineCard key={index} bottle={bottle}></WineCard> : undefined
                   //return <><WineCard key={index} bottle={bottle}></WineCard></>
                 }) : <div style={{ flexDirection: 'column' }} className='wineBottle'><p>No Wine Bottles Found</p><p>{notFoundIcons[Math.floor(Math.random() * 4)]}</p></div>}
               </div>

@@ -1,11 +1,11 @@
 export type WineBottle = {
-    Description: string,
-    Vintage: string,
-    Country: string,
-    Region: string,
-    SubRegion: string,
-    Total: number,
-    OhioRetail: number,
+    description: string,
+    vintage: string,
+    country: string,
+    region: string,
+    subRegion: string,
+    total: number,
+    ohioRetail: number,
 }
 
 const endpoints = {
@@ -40,11 +40,11 @@ export const filterBottles = (wineBottles: WineBottle[], searchQuery: string): W
     if (cleanQuery) {
         return wineBottles.filter((bottle) => {
             return (
-                `${bottle.Vintage} ${bottle.Description}`?.toLowerCase().includes(cleanQuery) ||
-                `${bottle.Country}`?.toLowerCase().includes(cleanQuery) ||
-                `${bottle.Region}`?.toLowerCase().includes(cleanQuery) ||
-                `${bottle.SubRegion}`?.toLowerCase().includes(cleanQuery) ||
-                `$${bottle.OhioRetail}`?.toLowerCase().includes(cleanQuery)
+                `${bottle.vintage} ${bottle.description}`?.toLowerCase().includes(cleanQuery) ||
+                `${bottle.country}`?.toLowerCase().includes(cleanQuery) ||
+                `${bottle.region}`?.toLowerCase().includes(cleanQuery) ||
+                `${bottle.subRegion}`?.toLowerCase().includes(cleanQuery) ||
+                `${bottle.ohioRetail}`?.toLowerCase().includes(cleanQuery)
             );
         })
     } else {
@@ -60,9 +60,9 @@ export const filterAdditionalQueries = (wineBottles: WineBottle[], additionalQue
         return wineBottles.filter((bottle) => {
             return additionalQueries.some((query) => {
                 return (
-                    bottle.Country?.replace(/[^a-zA-Z0-9\s]/g, '').toLowerCase().includes(query.toLowerCase()) ||
-                    bottle.Region?.replace(/[^a-zA-Z0-9\s]/g, '').toLowerCase().includes(query.toLowerCase()) ||
-                    bottle.Description?.replace(/[^a-zA-Z0-9\s]/g, '').toLowerCase().includes(query.toLowerCase())
+                    bottle.country?.replace(/[^a-zA-Z0-9\s]/g, '').toLowerCase().includes(query.toLowerCase()) ||
+                    bottle.region?.replace(/[^a-zA-Z0-9\s]/g, '').toLowerCase().includes(query.toLowerCase()) ||
+                    bottle.description?.replace(/[^a-zA-Z0-9\s]/g, '').toLowerCase().includes(query.toLowerCase())
                 );
             });
         });
@@ -88,8 +88,8 @@ export const sortBottles = (filteredWineBottles: WineBottle[], sortQuery: string
             case "year descending":
                 {
                     filteredWineBottles.sort((a, b) => {
-                        const aYear = Number(a.Vintage);
-                        const bYear = Number(b.Vintage);
+                        const aYear = Number(a.vintage);
+                        const bYear = Number(b.vintage);
 
                         // If `Vintage` is not a valid number (undated), move it to the bottom
                         if (isNaN(aYear) && !isNaN(bYear)) {
@@ -108,8 +108,8 @@ export const sortBottles = (filteredWineBottles: WineBottle[], sortQuery: string
             case "year ascending":
                 {
                     filteredWineBottles.sort((a, b) => {
-                        const aYear = Number(a.Vintage);
-                        const bYear = Number(b.Vintage);
+                        const aYear = Number(a.vintage);
+                        const bYear = Number(b.vintage);
 
                         // If `Vintage` is not a valid number (undated), move it to the bottom
                         if (isNaN(aYear) && !isNaN(bYear)) {
@@ -128,8 +128,8 @@ export const sortBottles = (filteredWineBottles: WineBottle[], sortQuery: string
             case "price ascending":
                 {
                     filteredWineBottles.sort((a, b) => {
-                        const aPrice = cleanPrice(a.OhioRetail ? a.OhioRetail : 0); // Convert price to number
-                        const bPrice = cleanPrice(b.OhioRetail ? b.OhioRetail : 0);
+                        const aPrice = cleanPrice(a.ohioRetail ? a.ohioRetail : 0); // Convert price to number
+                        const bPrice = cleanPrice(b.ohioRetail ? b.ohioRetail : 0);
 
                         return aPrice - bPrice; // Ascending order by Price
                     })
@@ -138,8 +138,8 @@ export const sortBottles = (filteredWineBottles: WineBottle[], sortQuery: string
             case "price descending":
                 {
                     filteredWineBottles.sort((a, b) => {
-                        const aPrice = cleanPrice(a.OhioRetail ? a.OhioRetail : 0); // Convert price to number
-                        const bPrice = cleanPrice(b.OhioRetail ? b.OhioRetail : 0);
+                        const aPrice = cleanPrice(a.ohioRetail ? a.ohioRetail : 0); // Convert price to number
+                        const bPrice = cleanPrice(b.ohioRetail ? b.ohioRetail : 0);
 
                         return bPrice - aPrice; // Ascending order by Price
                     })
@@ -148,7 +148,7 @@ export const sortBottles = (filteredWineBottles: WineBottle[], sortQuery: string
             case "alphabetically":
                 {
                     filteredWineBottles.sort((a, b) => {
-                        return a.Description?.localeCompare(b.Description);
+                        return a.description?.localeCompare(b.description);
                     })
                     break;
                 }
@@ -168,8 +168,8 @@ export const filterWineTypesByDescriptionAndCountry = (wineBottles: WineBottle[]
 
     // Loop through each wine bottle
     wineBottles.forEach((bottle) => {
-        const description = bottle.Description?.toLowerCase();
-        const region = bottle.Region?.toLowerCase();
+        const description = bottle.description?.toLowerCase();
+        const region = bottle.region?.toLowerCase();
 
         // Check each wine type if it's in the description or country
         wineTypes.forEach((wineType) => {
