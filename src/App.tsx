@@ -278,10 +278,10 @@ function App() {
               <select id="sortWidget" className="noAppearance" ref={sortRef} onChange={onSort}
                 style={{ textAlign: "left", zIndex: 1, width: '63px', }}>
                 <option value={''}>Sort</option>
-                <option value={'price descending'}>Price ↓</option>
-                <option value={'price ascending'}>Price ↑</option>
-                <option value={'year descending'}>Year ↓</option>
-                <option value={'year ascending'}>Year ↑</option>
+                <option value={'price descending'}>Most $</option>
+                <option value={'price ascending'}>Least $</option>
+                <option value={'year descending'}>Newest</option>
+                <option value={'year ascending'}>Oldest</option>
                 <option value={'alphabetically'}>A-Z</option>
               </select>
               <span className="material-symbols-outlined selectChevron" style={{
